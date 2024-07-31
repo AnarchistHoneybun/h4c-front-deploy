@@ -2,6 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import Image from "next/image";
 import Searchbar from "@/components/Searchbar";
 import OpenSearchBar from "@/components/OpenSearchBar";
+
 export default async function Profile() {
   const supabase = createClient();
   const user = (await supabase.auth.getUser()).data.user?.user_metadata;
@@ -20,7 +21,7 @@ export default async function Profile() {
       <div>Welcome {user?.full_name}</div>
       <div className=""> Email: {user?.email}</div>
       <div className="">Skills: </div>
-      <OpenSearchBar/>
+      <OpenSearchBar user={user!}/>
       {/* <Searchbar/> */}
     </div>
   );

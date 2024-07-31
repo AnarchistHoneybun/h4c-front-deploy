@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/command";
 import { useToast } from "./ui/use-toast";
 import { useState } from "react";
+import { UserMetadata } from "@supabase/supabase-js";
 
 interface SearchItem {
   Category: string;
@@ -19,7 +20,7 @@ interface SearchItem {
   _id: Object;
 }
 
-export default function Searchbar() {
+export default function Searchbar({ user }: { user: UserMetadata }) {
   const [q, setQ] = useState("");
   const [qres, setQres] = useState<Array<SearchItem>>([]);
   const { toast } = useToast();
@@ -37,6 +38,24 @@ export default function Searchbar() {
       });
     setQ("");
   }
+  
+  function addSkills(skill: string) {
+    const formdata = new FormData();
+    formdata.append("username", user.email);
+    formdata.append("skills", skill);
+
+    setQ("");
+    setQres([]);
+    const requestOptions = {
+      method: "POST",
+      body: formdata,
+    };
+
+    fetch("http:localhost/add_skills", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.error(error));
+  }
 
   return (
     <Command className="rounded-lg border shadow-md">
@@ -51,8 +70,10 @@ export default function Searchbar() {
       <CommandList>
         <CommandEmpty>Press enter to search</CommandEmpty>
         {qres.map((e, key) => (
-          <CommandGroup heading={e.Category} >
-            <CommandItem key={key} onSelect={(e)=>console.log(e)}>{e.Name}</CommandItem>
+          <CommandGroup heading={e.Category}>
+            <CommandItem key={key} onSelect={(e) => addSkills(e)}>
+              {e.Name}
+            </CommandItem>
           </CommandGroup>
         ))}
       </CommandList>
