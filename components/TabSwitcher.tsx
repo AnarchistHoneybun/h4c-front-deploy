@@ -18,7 +18,7 @@ export default function TabSwitcher({ className }: { className?: string }) {
       <Dock className="gap-8" direction="middle" magnification={90}>
         <DockIcon className="mx-6">
           <Link
-            className="flex items-center justify-center px-4 py-2 rounded-lg hover:bg-accent hover:bg-opacity-20 transition-all duration-300"
+            className="flex items-center justify-center px-4 py-2 rounded-lg hover:bg-tabhover hover:bg-opacity-20 transition-all duration-300"
             href="/"
           >
             <Home className="mr-2" />
@@ -27,7 +27,7 @@ export default function TabSwitcher({ className }: { className?: string }) {
         </DockIcon>
         <DockIcon className="mx-6">
           <Link
-            className="flex items-center justify-center px-4 py-2 rounded-lg hover:bg-accent hover:bg-opacity-20 transition-all duration-300"
+            className="flex items-center justify-center px-4 py-2 rounded-lg hover:bg-tabhover hover:bg-opacity-20 transition-all duration-300"
             href="/dash"
           >
             <ChartArea className="mr-2" />
@@ -36,7 +36,7 @@ export default function TabSwitcher({ className }: { className?: string }) {
         </DockIcon>
         <DockIcon className="mx-6">
           <Link
-            className="flex items-center justify-center px-4 py-2 rounded-lg hover:bg-accent hover:bg-opacity-20 transition-all duration-300"
+            className="flex items-center justify-center px-4 py-2 rounded-lg hover:bg-tabhover hover:bg-opacity-20 transition-all duration-300"
             href="/profile"
           >
             <User className="mr-2" />
@@ -45,7 +45,7 @@ export default function TabSwitcher({ className }: { className?: string }) {
         </DockIcon>
         <DockIcon className="mx-10">
           <Link
-            className="flex items-center justify-center px-4 py-2 rounded-lg hover:bg-accent hover:bg-opacity-20 transition-all duration-300 bg-destructive"
+            className="flex items-center justify-center px-4 py-2 rounded-lg hover:bg-tabhover hover:bg-opacity-20 transition-all duration-300 bg-destructive"
             href="/"
             onClick={signOut}
           >

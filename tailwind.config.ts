@@ -44,6 +44,12 @@ const config = {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
+        tabhover: {
+          DEFAULT: "hsl(var(--tabhover))",
+        },
+        loginhover: {
+          DEFAULT: "hsl(var(--loginhover))",
+        },
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
