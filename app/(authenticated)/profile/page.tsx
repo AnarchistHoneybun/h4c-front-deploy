@@ -6,7 +6,13 @@ import OpenSearchBar from "@/components/OpenSearchBar";
 export default async function Profile() {
   const supabase = createClient();
   const user = (await supabase.auth.getUser()).data.user?.user_metadata;
-  const skills: [string] = await (await fetch(`http://localhost:8000/get_skills?username=${encodeURIComponent(user!.email)}`)).json();
+  const skills: [string] = await (
+    await fetch(
+      `http://localhost:8000/get_skills?username=${encodeURIComponent(
+        user!.email
+      )}`
+    )
+  ).json();
 
   return (
     <div className="container flex flex-col mx-auto p-4">
@@ -23,10 +29,10 @@ export default async function Profile() {
       <div>Welcome {user?.full_name}</div>
       <div className=""> Email: {user?.email}</div>
       <div className="">Skills: </div>
-      {skills.map((e)=>(
+      {skills.map((e) => (
         <div className="">{e}</div>
       ))}
-      <OpenSearchBar user={user!}/>
+      <OpenSearchBar user={user!} />
       {/* <Searchbar/> */}
     </div>
   );

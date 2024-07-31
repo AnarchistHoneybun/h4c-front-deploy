@@ -13,6 +13,7 @@ import {
 import { useToast } from "./ui/use-toast";
 import { useState } from "react";
 import { UserMetadata } from "@supabase/supabase-js";
+import reval_profile from "@/utils/reval"; 
 
 interface SearchItem {
   Category: string;
@@ -38,7 +39,7 @@ export default function Searchbar({ user }: { user: UserMetadata }) {
       });
     setQ("");
   }
-  
+
   function addSkills(skill: string) {
     const formdata = new FormData();
     formdata.append("username", user.email);
@@ -51,10 +52,12 @@ export default function Searchbar({ user }: { user: UserMetadata }) {
       body: formdata,
     };
 
-    fetch("http:localhost/add_skills", requestOptions)
+    fetch("http://localhost:8000/add_skills", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.error(error));
+
+    reval_profile();
   }
 
   return (
