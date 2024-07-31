@@ -1,5 +1,4 @@
-import TabSwitcher from "@/components/TabSwitcher";
-import Footer from "@/components/Footer";
+import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 import "@/app/globals.css";
 
@@ -18,6 +17,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
