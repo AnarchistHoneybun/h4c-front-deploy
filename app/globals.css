@@ -20,6 +20,9 @@
     --secondary: 0 0% 55.29%;
     --secondary-foreground: 0 0% 100%;
     --accent: 145.29 62.96% 31.76%;
+    /*--tabhover: 0 0% 89.8%;*/
+    --tabhover: 140 5% 80%;
+    --loginhover: 210 28.77% 20%;
     --accent-foreground: 0 0% 100%;
     --destructive: 5.61 78.08% 57.06%;
     --destructive-foreground: 0 0% 100%;
@@ -43,6 +46,8 @@
     --secondary: 145 8% 20%;
     --secondary-foreground: 145 8% 80%;
     --accent: 145 8% 20%;
+    --tabhover: 140 8% 20%;
+    --loginhover: 145 12% 85%;
     --accent-foreground: 145 8% 80%;
     --destructive: 10 93% 60%;
     --destructive-foreground: 0 0% 0%;
