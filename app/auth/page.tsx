@@ -15,6 +15,7 @@ const getURL = () => {
   // Make sure to include a trailing `/`.
   url = url.endsWith("/") ? url : `${url}/`;
   url += "auth/callback/";
+  console.log(url);
   return url;
 };
 
