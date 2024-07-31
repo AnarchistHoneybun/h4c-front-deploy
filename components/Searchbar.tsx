@@ -52,7 +52,7 @@ export default function Searchbar() {
         <CommandEmpty>Press enter to search</CommandEmpty>
         {qres.map((e, key) => (
           <CommandGroup heading={e.Category} >
-            <CommandItem key={key} onSelect={()=>console.log("selec")}>{e.Name}</CommandItem>
+            <CommandItem key={key} onSelect={(e)=>console.log(e)}>{e.Name}</CommandItem>
           </CommandGroup>
         ))}
       </CommandList>
