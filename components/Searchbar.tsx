@@ -25,12 +25,11 @@ export default function Searchbar() {
   const { toast } = useToast();
 
   async function fetchSearchRes() {
-    if (q.length < 3) return;
+    if (q.length == 0) return;
 
     const res = await fetch(`http://localhost:8000/search?q=${q}`);
     const res_json: Array<SearchItem> = await res.json();
     setQres(res_json);
-    console.log(res_json.length);
     if (res_json.length == 0)
       toast({
         title: "No skill found!",
@@ -38,6 +37,7 @@ export default function Searchbar() {
       });
     setQ("");
   }
+
   return (
     <Command className="rounded-lg border shadow-md">
       <CommandInput
@@ -50,9 +50,9 @@ export default function Searchbar() {
       />
       <CommandList>
         <CommandEmpty>Press enter to search</CommandEmpty>
-        {qres.map((e) => (
-          <CommandGroup heading={e.Category}>
-            <CommandItem>{e.Name}</CommandItem>
+        {qres.map((e, key) => (
+          <CommandGroup heading={e.Category} >
+            <CommandItem key={key} onSelect={()=>console.log("selec")}>{e.Name}</CommandItem>
           </CommandGroup>
         ))}
       </CommandList>
