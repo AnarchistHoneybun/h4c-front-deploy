@@ -9,7 +9,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
     return (
         <div className="flex items-center space-x-8 mb-8">
             <div className="flex-shrink-0">
-                <div className="rounded-lg overflow-hidden" style={{ width: '150px', height: '150px' }}>
+                <div className="rounded-md overflow-hidden" style={{ width: '150px', height: '150px' }}>
                     <Image
                         src={user.avatar_url}
                         alt="User profile picture"
