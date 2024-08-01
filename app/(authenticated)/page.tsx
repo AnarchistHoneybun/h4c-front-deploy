@@ -5,10 +5,20 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Plus } from "lucide-react";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 export default function Dash() {
   const [mainCardTitle, setMainCardTitle] = useState("Main Content Area");
   const [cardTitles, setCardTitles] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
   const [role, setRole] = useState<string[]>([]);
   const [roadmap, setRoadmap] = useState<Object[]>([]);
 
@@ -22,11 +32,14 @@ export default function Dash() {
     )
       .then((response) => response.json())
       .then((result) => {
+        console.log(result);
         setRoadmap(result["roadmap"]);
         setRole([...role, result["desired_role"]]);
       })
       .catch((error) => console.error(error));
+    setLoading(false);
   }, []);
+
   const handleCardClick = (title: string) => {
     setMainCardTitle(title);
   };
@@ -67,9 +80,37 @@ export default function Dash() {
               <CardTitle>Roadmap for: {role}</CardTitle>
             </CardHeader>
             <CardContent>
-              {roadmap.map((e, i)=>(
-                <div className="">{e.step}</div>
-              ))}
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-1/2">Step Description</TableHead>
+                    <TableHead className="w-1/4">Skills</TableHead>
+                    <TableHead className="text-right">Status</TableHead>
+                  </TableRow>
+                </TableHeader>
+                {loading ? (
+                  // <div>Loading data from server...</div>
+                  <TableBody><TableRow><TableCell>Loading data from server...</TableCell></TableRow></TableBody>
+                ) : (
+                  <TableBody className="w-full">
+                    {roadmap.map((e, i) => (
+                      <TableRow>
+                        <TableCell>{e.step}</TableCell>
+                        <TableCell>
+                          {e.skills.map((f) => (
+                            <div>
+                              {f.name} : {(f.level as string).charAt(0).toUpperCase().concat((f.level as string).slice(1))}
+                            </div>
+                          ))}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {e.completed ? "Completed" : "To-Do"}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                )}
+              </Table>
             </CardContent>
           </Card>
         </div>
