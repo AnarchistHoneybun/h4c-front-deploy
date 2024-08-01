@@ -1,30 +1,35 @@
-import { GlobeComponent } from "@/components/GlobeComponent";
-import { BlurInTitle } from "@/components/BlurInTitle";
+"use client"
 
-export default function Home() {
+import React, { useState } from 'react';
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import ScrollCardList from '@/components/ScrollCardList';
+
+export default function Dash() {
+  const [mainCardTitle, setMainCardTitle] = useState("Main Content Area");
+
+  const handleCardClick = (title: string) => {
+    setMainCardTitle(title);
+  };
+
   return (
-    <div className="container mx-auto p-4">
-      <div className="flex flex-col md:flex-row">
-        <div className="w-full md:w-1/2">
-          <BlurInTitle />
-          <p className="text-foreground mt-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur iste
-            fuga at odio blanditiis quas facere quidem debitis ullam libero animi
-            a neque ut necessitatibus qui, et exercitationem porro id molestias
-            dolores consectetur cupiditate. Cumque laboriosam ut sit consectetur
-            eos minus, obcaecati voluptatum quas, temporibus minima odit fugiat
-            repellendus consequuntur modi! Tenetur autem sint eos alias at quod
-            molestias, iste nihil? Vero dolore, consequuntur beatae veritatis
-            porro rerum optio minus tempore quae at iusto nesciunt atque omnis
-            architecto. Illum nam, cum esse quia dolores consectetur molestiae
-            aperiam tempore ut ab quibusdam impedit vitae. Aut impedit aliquid
-            dolores esse eos. Molestias?
-          </p>
-        </div>
-        <div className="w-full md:w-1/2 mt-8 md:mt-0">
-          <GlobeComponent />
+      <div className="container mx-auto p-4">
+        <div className="flex gap-6">
+          <div className="w-1/3">
+            <ScrollCardList onCardClick={handleCardClick} />
+          </div>
+          <Separator orientation="vertical" className="h-[calc(100vh-12rem)]" />
+          <div className="w-2/3">
+            <Card className="h-[calc(100vh-12rem)]">
+              <CardHeader>
+                <CardTitle>{mainCardTitle}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>This is a placeholder for the main content. You can add more detailed information or components here.</p>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
-    </div>
   );
 }
