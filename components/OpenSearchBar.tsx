@@ -1,3 +1,6 @@
+'use client';
+
+import React from 'react';
 import {
   Dialog,
   DialogContent,
@@ -9,18 +12,25 @@ import {
 import Searchbar from "./Searchbar";
 import { UserMetadata } from "@supabase/supabase-js";
 
-export default function OpenSearchBar({user}:{user:UserMetadata}) {
+interface OpenSearchBarProps {
+  user: UserMetadata;
+  trigger: React.ReactNode;
+}
+
+export default function OpenSearchBar({ user, trigger }: OpenSearchBarProps) {
   return (
-    <Dialog>
-      <DialogTrigger>Open</DialogTrigger>
-      <DialogContent>
-        <DialogHeader className="space-y-4">
-          <DialogTitle>Add a new skill</DialogTitle>
-          <DialogDescription>
-            <Searchbar user={user}/>
-          </DialogDescription>
-        </DialogHeader>
-      </DialogContent>
-    </Dialog>
+      <Dialog>
+        <DialogTrigger asChild>
+          {trigger}
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add a new skill</DialogTitle>
+            <DialogDescription>
+              <Searchbar user={user}/>
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
   );
 }

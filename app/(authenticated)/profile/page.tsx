@@ -1,39 +1,27 @@
 import { createClient } from "@/utils/supabase/server";
-import Image from "next/image";
-import Searchbar from "@/components/Searchbar";
-import OpenSearchBar from "@/components/OpenSearchBar";
+import UserInfo from "@/components/UserInfo";
+import ClientSkillsList from "@/components/ClientSkillsList";
 
 export default async function Profile() {
-  const supabase = createClient();
-  const user = (await supabase.auth.getUser()).data.user?.user_metadata;
-  const skills: [string] = await (
-    await fetch(
-      `http://localhost:8000/get_skills?username=${encodeURIComponent(
-        user!.email
-      )}`
-    )
-  ).json();
+    const supabase = createClient();
+    const user = (await supabase.auth.getUser()).data.user?.user_metadata;
+    const skills: string[] = await (
+        await fetch(
+            `http://localhost:8000/get_skills?username=${encodeURIComponent(
+                user!.email
+            )}`
+        )
+    ).json();
 
-  return (
-    <div className="container flex flex-col mx-auto p-4">
-      <h1 className="text-2xl font-bold">Profile Page</h1>
-      <div className="h-fit w-fit">
-        <Image
-          src={user?.avatar_url}
-          alt="Github user profile picture"
-          height={500}
-          width={500}
-          className="rounded-full "
-        />
-      </div>
-      <div>Welcome {user?.full_name}</div>
-      <div className=""> Email: {user?.email}</div>
-      <div className="">Skills: </div>
-      {skills.map((e) => (
-        <div className="">{e}</div>
-      ))}
-      <OpenSearchBar user={user!} />
-      {/* <Searchbar/> */}
-    </div>
-  );
+    return (
+        <div className="container mx-auto px-4 max-w-3xl">
+            <div className="my-8">
+                <UserInfo user={user!} />
+            </div>
+            <div className="mb-6">
+                <h2 className="text-xl font-semibold mb-4">Skills:</h2>
+                <ClientSkillsList skills={skills} user={user!} />
+            </div>
+        </div>
+    );
 }
