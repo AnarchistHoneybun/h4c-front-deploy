@@ -28,7 +28,7 @@ export default function Dash() {
     };
 
     fetch(
-      "http://127.0.0.1:8000/get_desired_role?username=mudit.7.gupta%2Bgithub@gmail.com"
+      "http://44.207.8.41/get_desired_role?username=mudit.7.gupta%2Bgithub@gmail.com"
     )
       .then((response) => response.json())
       .then((result) => {
@@ -93,17 +93,17 @@ export default function Dash() {
                   <TableBody><TableRow><TableCell>Loading data from server...</TableCell></TableRow></TableBody>
                 ) : (
                   <TableBody className="w-full">
-                    {roadmap.map((e, i) => (
+                    {roadmap.map((e: any, i) => (
                       <TableRow>
                         <TableCell>{e.step}</TableCell>
                         <TableCell>
-                          {e.skills.map((f) => (
+                          {e.skills.map((f: any) => (
                             <div>
                               {f.name} : {(f.level as string).charAt(0).toUpperCase().concat((f.level as string).slice(1))}
                             </div>
                           ))}
                         </TableCell>
-                        <TableCell className="text-right">
+                        <TableCell className={`text-right ${e.completed ? "text-green-600" : "text-red-600"}`} >
                           {e.completed ? "Completed" : "To-Do"}
                         </TableCell>
                       </TableRow>

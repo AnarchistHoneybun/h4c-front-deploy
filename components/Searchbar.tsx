@@ -29,7 +29,7 @@ export default function Searchbar({ user }: { user: UserMetadata }) {
   async function fetchSearchRes() {
     if (q.length == 0) return;
 
-    const res = await fetch(`http://localhost:8000/search?q=${q}`);
+    const res = await fetch(`http://44.207.8.41/search?q=${q}`);
     const res_json: Array<SearchItem> = await res.json();
     setQres(res_json);
     if (res_json.length == 0)
@@ -52,7 +52,7 @@ export default function Searchbar({ user }: { user: UserMetadata }) {
       body: formdata,
     };
 
-    fetch("http://localhost:8000/add_skills", requestOptions)
+    fetch("http://44.207.8.41/add_skills", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.error(error));

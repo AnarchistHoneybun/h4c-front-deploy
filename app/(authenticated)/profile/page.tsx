@@ -7,7 +7,7 @@ export default async function Profile() {
   const user = (await supabase.auth.getUser()).data.user?.user_metadata;
   const skills: string[] = await (
     await fetch(
-      `http://localhost:8000/get_skills?username=${encodeURIComponent(
+      `http://44.207.8.41/get_skills?username=${encodeURIComponent(
         user!.email
       )}`
     )

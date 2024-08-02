@@ -17,7 +17,7 @@ export default async function Layout({
     body: formdata,
   };
 
-  fetch("http://127.0.0.1:8000/create_account_from_email", requestOptions)
+  fetch("http://44.207.8.41/create_account_from_email", requestOptions)
     .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.error(error));

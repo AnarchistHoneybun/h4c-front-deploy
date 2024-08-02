@@ -28,7 +28,7 @@ const ClientSkillsList: React.FC<ClientSkillsListProps> = ({
       body: formdata,
     };
 
-    fetch("http://127.0.0.1:8000/delete_skills", requestOptions)
+    fetch("http://44.207.8.41/delete_skills", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.error(error));
