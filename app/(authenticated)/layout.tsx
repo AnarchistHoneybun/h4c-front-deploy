@@ -17,7 +17,7 @@ export default async function Layout({
     body: formdata,
   };
 
-  fetch("http://44.207.8.41/create_account_from_email", requestOptions)
+  fetch("https://j3n3kckyz3.execute-api.us-east-1.amazonaws.com/create_account_from_email", requestOptions)
     .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.error(error));
