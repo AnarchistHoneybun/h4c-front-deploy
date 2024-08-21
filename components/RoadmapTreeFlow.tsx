@@ -39,8 +39,13 @@ function Flow() {
           ...e,
           {
             id: temp["roadmap"][i]["Step_name"],
-            data: { label: temp["roadmap"][i]["Step_name"] },
+            data: { label: (<div style={{ fontWeight: "bold", fontSize: "16px" }}>
+              {temp["roadmap"][i]["Step_name"]}
+            </div>) },
             position: { x: 1000, y: (parseInt(i)-1)*100 },
+            style: {
+              border: "3px solid green",
+            },
           },
         ]);
         
@@ -66,11 +71,24 @@ function Flow() {
             {
               id: temp["roadmap"][i]["Sub_steps"][j]["Sub_step_name"],
               data: {
-                label: temp["roadmap"][i]["Sub_steps"][j]["Sub_step_name"],
+                label: (
+                  <div
+                    style={{
+                      fontWeight: "normal",
+                      fontSize: "14px",
+                      color: "#888",
+                    }}
+                  >
+                    {temp["roadmap"][i]["Sub_steps"][j]["Sub_step_name"]}
+                  </div>
+                ),
               },
               position: {
                 x: sub_step_x_offset,
                 y: (parseInt(i))*100+sub_step_y_offset,
+              },
+              style: {
+                border: "3px solid red",
               },
             },
           ]);

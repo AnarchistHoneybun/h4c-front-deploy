@@ -41,35 +41,45 @@ export default async function Page() {
 
   return (
     <div className="container mx-auto my-12">
-      <h1 className="text-3xl font-bold text-center mb-8">
+      <h1 className="text-5xl font-black text-center mb-8">
         CONTINUE YOUR SKILL JOURNEY
         <br />
-        PICK UP WHERE YOU LEFT OFF!
+        <span className="text-green-500">PICK UP WHERE YOU LEFT OFF!</span>
       </h1>
       <div className="grid grid-cols-3 gap-6">
-        {Object.keys(roadmaps["roadmaps"]).map((key: any, i: number) => (
-          <Card key={i} className="">
-            <CardHeader>
-              <CardTitle className="text-lg">{key}</CardTitle>
-            </CardHeader>
-            <CardContent className="flex justify-between items-center">
-              <Dialog>
-                <DialogTrigger>
-                  {/* <Button variant="outline" className="flex items-center gap-2"> */}
-                    <Sparkle className="w-5 h-5" />
-                    Go
-                  {/* </Button> */}
-                </DialogTrigger>
-                <DialogContent className="bg-white rounded-lg shadow-lg w-[90%] max-w-5xl h-[90%] max-h-[90vh] flex flex-col">
-                  <DialogHeader>{key}</DialogHeader>
-                  <div className="flex-1 overflow-auto">
-                    <RoadmapTreeFlow />
-                  </div>
-                </DialogContent>
-              </Dialog>
-            </CardContent>
-          </Card>
-        ))}
+        {Object.keys(roadmaps["roadmaps"]).map((key: string, i: number) => {
+          const [role, company] = key.split("+");
+          return (
+            <Card key={i} className="">
+              <CardHeader>
+                <CardTitle className="text-2xl font-black">
+                  {role} <span className="text-green-500">@</span> {company}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="flex justify-between items-center">
+                <Dialog>
+                  <DialogTrigger>
+                    <Button
+                      variant="outline"
+                      className="flex items-center gap-2"
+                    >
+                      <Sparkle className="w-5 h-5" />
+                      Go
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="bg-white rounded-lg shadow-lg w-[90%] max-w-5xl h-[90%] max-h-[90vh] flex flex-col">
+                    <DialogHeader>
+                      {role} @ {company}
+                    </DialogHeader>
+                    <div className="flex-1 overflow-auto">
+                      <RoadmapTreeFlow />
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </CardContent>
+            </Card>
+          );
+        })}
 
         <Dialog>
           <DialogTrigger asChild>
@@ -83,10 +93,11 @@ export default async function Page() {
           <DialogContent>
             <DialogHeader>
               <DialogTitle>
-                Enter the role to generate a roadmap for:{" "}
+                Enter the role & company to generate roadmap:{" "}
               </DialogTitle>
             </DialogHeader>
-            <Input placeholder="Enter here..." />
+            <Input className="bg-gray-400" placeholder="Enter role here..." />
+            <Input className="bg-gray-400" placeholder="Enter company here..." />
             <Dialog>
               <DialogTrigger>
                 <div className="w-full bg-slate-200">Add</div>
