@@ -72,7 +72,7 @@ export default async function Page() {
                       {role} @ {company}
                     </DialogHeader>
                     <div className="flex-1 overflow-auto">
-                      <RoadmapTreeFlow />
+                      <RoadmapTreeFlow role={role} company={company}/>
                     </div>
                   </DialogContent>
                 </Dialog>

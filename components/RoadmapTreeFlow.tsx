@@ -11,14 +11,15 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { randomBytes } from "crypto";
+import { createClient } from "@/utils/supabase/client";
 
 let initialNodes: Node[] = [];
 let initialEdges: Edge[] = [];
 
-function Flow() {
+function Flow({role, company}:{role: string, company: string}) {
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
-
+  const supabase = createClient();
   const onNodesChange = useCallback(
     (changes: any) => setNodes((nds: any) => applyNodeChanges(changes, nds)),
     []
@@ -30,9 +31,10 @@ function Flow() {
 
   useEffect(() => {
     async function temp() {
-      const x = await fetch("http://localhost:8000/test");
-      const temp = await x.json();
-
+      const user = await supabase.auth.getUser();
+      const x = await fetch(`http://localhost:8000/roadmap?username=${encodeURIComponent(user.data.user?.email!)}&role=${role}&company=${company}`);
+      let temp = await x.json();
+      temp = temp["roadmap"];
       
       for (let i in temp["roadmap"]) {
         setNodes((e: any) => [

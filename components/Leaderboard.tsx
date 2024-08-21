@@ -29,7 +29,7 @@ const Leaderboard = () => {
   useEffect(() => {
     const fetchGlobalLeaderboard = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/leaderboard/global?username=\"thatonebipanda@gmail.com\"");
+        const response = await fetch("http://127.0.0.1:8000/leaderboard/global?username=thatonebipanda@gmail.com");
         const data: LeaderboardResponse = await response.json();
         setPosition(data.position);
         setGlobalLeaderboard(data.leaderboard.slice(0, 10)); // Limit to 10 entries
