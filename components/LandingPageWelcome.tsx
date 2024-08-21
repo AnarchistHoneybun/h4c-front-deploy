@@ -5,7 +5,7 @@ import PlaceholderImage from '@/public/welcome-right.png';
 
 const LandingPageWelcome: React.FC = () => {
   return (
-    <div className="bg-white p-8 rounded-lg">
+    <div className="bg-background p-8 rounded-lg">
       <div className="flex justify-items-center items-center">
         <div className="w-1/2 pr-8">
           <h1 className="text-5xl font-bold text-gray-800 mb-4">

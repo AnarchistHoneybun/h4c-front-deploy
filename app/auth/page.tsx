@@ -4,6 +4,7 @@ import {createClient} from "@/utils/supabase/client"
 import { Github } from "lucide-react";
 import ModeToggle from "@/components/ModeToggle";
 import HeroText from "@/components/HeroText";
+import Footer from "@/components/Footer";
 
 async function signInWithGithub() {
     const supabase = createClient();
@@ -67,6 +68,7 @@ const Page: React.FC = () => {
             <LandingPageInfoFrame />
             <LandingPageDreamRole />
             <LandingPageCallToAction />
+            <Footer />
         </div>
     );
 };
