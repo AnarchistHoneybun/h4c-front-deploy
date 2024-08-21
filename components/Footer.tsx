@@ -50,7 +50,7 @@ const Footer: React.FC = () => {
             >
               FAQ's
             </h3>
-            <ul className="space-y-2">
+            <ul className="space-y-2 text-background">
               <li>
                 <a href="#" className="hover:underline">
                   Link 1
@@ -75,7 +75,7 @@ const Footer: React.FC = () => {
             >
               More Info
             </h3>
-            <ul className="space-y-2">
+            <ul className="space-y-2 text-background">
               <li>
                 <a href="#" className="hover:underline">
                   Privacy Policy
