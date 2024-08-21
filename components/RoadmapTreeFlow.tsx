@@ -37,6 +37,13 @@ function Flow({role, company}:{role: string, company: string}) {
       temp = temp["roadmap"];
       
       for (let i in temp["roadmap"]) {
+        let borderColor = "green"; // Default border color is green (beginner)
+      if (temp["roadmap"][i]["Difficulty"] === "Advanced") {
+        borderColor = "red";
+      } else if (temp["roadmap"][i]["Difficulty"] === "Intermediate") {
+        borderColor = "yellow";
+      }
+        
         setNodes((e: any) => [
           ...e,
           {
@@ -46,7 +53,7 @@ function Flow({role, company}:{role: string, company: string}) {
             </div>) },
             position: { x: 1000, y: (parseInt(i)-1)*100 },
             style: {
-              border: "3px solid green",
+              border: "3px solid " + borderColor,
             },
           },
         ]);
@@ -93,7 +100,7 @@ function Flow({role, company}:{role: string, company: string}) {
                 y: (parseInt(i))*200+sub_step_y_offset+(parseInt(j))*20,
               },
               style: {
-                border: "3px solid red",
+                border: "3px solid pink",
               },
             },
           ]);
