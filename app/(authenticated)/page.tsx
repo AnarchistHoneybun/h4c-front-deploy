@@ -57,9 +57,11 @@ export default async function Page() {
                   <Sparkle className="w-5 h-5" />
                   Go
                 </DialogTrigger>
-                <DialogContent className="h-screen w-screen">
+                <DialogContent className="bg-white rounded-lg shadow-lg w-[90%] max-w-5xl h-[90%] max-h-[90vh] flex flex-col">
                   <DialogHeader>Roadmap for XYZ</DialogHeader>
-                  <RoadmapTreeFlow />
+                  <div className="flex-1 overflow-auto">
+                    <RoadmapTreeFlow />
+                  </div>
                 </DialogContent>
               </Dialog>
             </CardContent>

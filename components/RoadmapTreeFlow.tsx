@@ -18,6 +18,8 @@ function Flow() {
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
 
+  const proOptions = { hideAttribution: true };
+
   const onNodesChange = useCallback(
     (changes: any) => setNodes((nds: any) => applyNodeChanges(changes, nds)),
     []
@@ -74,13 +76,15 @@ function Flow() {
     temp();
   }, []);
   return (
-    <div className="h-screen w-screen">
+    <div className="h-full w-full">
       <ReactFlow
         nodes={nodes}
         onNodesChange={onNodesChange}
         edges={edges}
         onEdgesChange={onEdgesChange}
+        proOptions={proOptions}
         fitView
+        className="h-full w-full"
       >
         <Background />
         <Controls />
