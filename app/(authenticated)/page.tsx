@@ -28,7 +28,7 @@ export default function Dash() {
     };
 
     fetch(
-      "https://j3n3kckyz3.execute-api.us-east-1.amazonaws.com/get_desired_role?username=mudit.7.gupta%2Bgithub@gmail.com"
+      "http://localhost:8000/get_desired_role?username=mudit.7.gupta%2Bgithub@gmail.com"
     )
       .then((response) => response.json())
       .then((result) => {
