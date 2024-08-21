@@ -11,6 +11,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, Sparkle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import RoadmapTreeFlow from "@/components/RoadmapTreeFlow";
+import RoadmapTreeFlowStream from "@/components/RoadmapTreeFlowStream";
+import { Input } from "@/components/ui/input";
 
 export default async function Page() {
   const supabase = createClient();
@@ -67,12 +69,36 @@ export default async function Page() {
             </CardContent>
           </Card>
         ))}
-        <Card className="cursor-pointer hover:bg-gray-300 transition-colors">
-          <CardContent className="flex flex-col items-center justify-center h-full gap-2">
-            <Plus className="text-4xl" />
-            <div className="text-gray-600 font-bold">New Roadmap</div>
-          </CardContent>
-        </Card>
+
+        <Dialog>
+          <DialogTrigger asChild>
+            <Card className="cursor-pointer hover:bg-gray-300 transition-colors">
+              <CardContent className="flex flex-col items-center justify-center h-full gap-2">
+                <Plus className="text-4xl" />
+                <div className="text-gray-600 font-bold">New Roadmap</div>
+              </CardContent>
+            </Card>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>
+                Enter the role to generate a roadmap for:{" "}
+              </DialogTitle>
+            </DialogHeader>
+            <Input placeholder="Enter here..." />
+            <Dialog>
+              <DialogTrigger>
+                <div className="w-full bg-slate-200">Add</div>
+              </DialogTrigger>
+              <DialogContent className="bg-white rounded-lg shadow-lg w-[90%] max-w-5xl h-[90%] max-h-[90vh] flex flex-col">
+                <DialogHeader>Roadmap for XYZ</DialogHeader>
+                <div className="flex-1 overflow-auto">
+                  <RoadmapTreeFlowStream />
+                </div>
+              </DialogContent>
+            </Dialog>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
