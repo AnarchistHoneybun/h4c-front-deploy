@@ -33,19 +33,18 @@ function Flow() {
       const x = await fetch("http://localhost:8000/test");
       const temp = await x.json();
 
-      let x_offset = 100;
-      let y_offset = 50;
-
+      
       for (let i in temp["roadmap"]) {
+        console.log(temp['roadmap'], i);
         setNodes((e: any) => [
           ...e,
           {
             id: temp["roadmap"][i]["Step_name"],
             data: { label: temp["roadmap"][i]["Step_name"] },
-            position: { x: x_offset, y: y_offset },
+            position: { x: 1000, y: (parseInt(i)-1)*100 },
           },
         ]);
-
+        
         for (let j in temp["roadmap"][i]["Prerequisites"]) {
           setEdges((e: any) => [
             ...e,
@@ -56,19 +55,24 @@ function Flow() {
             },
           ]);
         }
-
-        let sub_step_x_offset = x_offset + 50;
-        let sub_step_y_offset = y_offset;
-        y_offset += 50;
+        
+        // let x_offset = 100;
+        // let y_offset = 50;
+        let sub_step_x_offset = 0;
+        let sub_step_y_offset = 0;
+        // y_offset += 50;
         for (let j in temp["roadmap"][i]["Sub_steps"]) {
+          console.log(sub_step_x_offset, sub_step_y_offset);
           setNodes((e: any) => [
             ...e,
             {
               id: temp["roadmap"][i]["Sub_steps"][j]["Sub_step_name"],
-              data: { label: temp["roadmap"][i]["Sub_steps"][j]["Sub_step_name"] },
+              data: {
+                label: temp["roadmap"][i]["Sub_steps"][j]["Sub_step_name"],
+              },
               position: {
                 x: sub_step_x_offset,
-                y: sub_step_y_offset,
+                y: (parseInt(i))*100+sub_step_y_offset,
               },
             },
           ]);
@@ -80,12 +84,11 @@ function Flow() {
               target: temp["roadmap"][i]["Sub_steps"][j]["Sub_step_name"],
             },
           ]);
-          sub_step_y_offset += 50;
-          sub_step_x_offset += 50;
+          sub_step_x_offset += 500;
         }
 
-        x_offset += 200;
-        y_offset += Math.random() < 0.5 ? 50 : -50;
+        // x_offset += 200;
+        // y_offset += Math.random() < 0.5 ? 50 : -50;
       }
     }
     temp();

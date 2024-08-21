@@ -55,10 +55,10 @@ export default async function Page() {
             <CardContent className="flex justify-between items-center">
               <Dialog>
                 <DialogTrigger>
-                  <Button variant="outline" className="flex items-center gap-2">
+                  {/* <Button variant="outline" className="flex items-center gap-2"> */}
                     <Sparkle className="w-5 h-5" />
                     Go
-                  </Button>
+                  {/* </Button> */}
                 </DialogTrigger>
                 <DialogContent className="bg-white rounded-lg shadow-lg w-[90%] max-w-5xl h-[90%] max-h-[90vh] flex flex-col">
                   <DialogHeader>{key}</DialogHeader>
