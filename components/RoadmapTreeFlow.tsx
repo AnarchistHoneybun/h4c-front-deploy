@@ -56,6 +56,9 @@ function Flow() {
               id: randomBytes(64),
               source: temp["roadmap"][i]["Step_name"],
               target: temp["roadmap"][i]["Prerequisites"][j],
+              style: {
+                strokeWidth: 3,
+              },
             },
           ]);
         }
@@ -84,8 +87,8 @@ function Flow() {
                 ),
               },
               position: {
-                x: sub_step_x_offset,
-                y: (parseInt(i))*100+sub_step_y_offset,
+                x: (parseInt(j))*180+sub_step_x_offset,
+                y: (parseInt(i))*200+sub_step_y_offset+(parseInt(j))*20,
               },
               style: {
                 border: "3px solid red",

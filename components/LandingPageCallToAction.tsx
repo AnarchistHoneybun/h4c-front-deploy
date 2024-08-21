@@ -23,7 +23,7 @@ const LandingPageCallToAction: React.FC = () => {
             JUST ONE SKILL<br />
             JOURNEY AWAY.
           </h2>
-          <p className="text-white text-xl">Sign up Now</p>
+          <p className=" text-gray-900 font-black text-xl">Sign up Now</p>
         </div>
         <div className="md:w-1/2">
           <LandingPageSignupForm />

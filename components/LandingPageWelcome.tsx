@@ -7,14 +7,14 @@ const LandingPageWelcome: React.FC = () => {
   return (
     <div className="bg-background p-8 rounded-lg">
       <div className="flex justify-items-center items-center">
-        <div className="w-1/2 pr-8">
-          <h1 className="text-5xl font-bold text-gray-800 mb-4">
+        <div className="w-1/2 pr-8 pl-24">
+          <h1 className="text-6xl font-black text-gray-800 mb-4">
             WELCOME TO<br />
             THE FUTURE<br />
             OF <span className="text-green-500">CAREER<br />
             GROWTH</span>
           </h1>
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-800 mb-4">
             At SkillJourney, we redefine career development by
             providing a clear roadmap to your dream role. Our
             platform offers a personalised learning experience

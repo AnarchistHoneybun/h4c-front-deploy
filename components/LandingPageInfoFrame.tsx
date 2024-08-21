@@ -8,7 +8,7 @@ const LandingPageInfoFrame: React.FC = () => {
         <h2 className="text-4xl font-bold mb-4 leading-tight">
           48% OF RECENT ENGINEERING GRADUATES<br />
           FACE UNEMPLOYMENT. AT SKILLJOURNEY,<br />
-          WE'RE HERE TO CHANGE THOSE ODDS.
+          WE'RE HERE TO <span className='text-orange-600'>CHANGE</span> THOSE ODDS.
         </h2>
         <p className="text-green-400 text-lg">
           Based on news article by The New Indian Express

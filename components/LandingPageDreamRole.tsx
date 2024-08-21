@@ -4,7 +4,7 @@ import React from 'react';
 const LandingPageDreamRole: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-16 text-center">
-      <h2 className="text-5xl font-bold mb-8" style={{ color: "hsl(178, 74%, 9%)" }}>
+      <h2 className="text-6xl font-black mb-8" style={{ color: "hsl(178, 74%, 9%)" }}>
         YOUR DREAM ROLE. <span className="text-green-500">JUST ONE<br />JOURNEY AWAY.</span>
       </h2>
       <div className="max-w-2xl mx-auto">
