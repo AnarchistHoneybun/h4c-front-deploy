@@ -39,12 +39,12 @@ function Flow() {
     (changes: any) => setEdges((eds: any) => applyEdgeChanges(changes, eds)),
     []
   );
-  useEffect(() => {
+  function stream() {
     const socket = new WebSocket("ws://localhost:8000/generate_roadmap");
     socket.onopen = () => {
       async function send_req() {
         const x = await supabase.auth.getUser();
-        
+
         socket.send(x.data.user?.email!);
         socket.send(role);
         socket.send(company);
@@ -53,8 +53,12 @@ function Flow() {
     };
     socket.onmessage = (e) => {
       const data = JSON.parse(e.data);
+      console.log(data);
       if (data.status == "completed") {
         socket.close();
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
         return;
       }
       for (let i in data) {
@@ -108,7 +112,7 @@ function Flow() {
     return () => {
       socket.close();
     };
-  }, []);
+  }
   return (
     <div className="">
       <Input
@@ -124,7 +128,7 @@ function Flow() {
         onChange={(e) => setCompany(e.target.value)}
       />
       <Dialog>
-        <DialogTrigger>
+        <DialogTrigger onClick={stream}>
           <div className="w-full bg-slate-200">Add</div>
         </DialogTrigger>
         <DialogContent className="bg-white rounded-lg shadow-lg w-[90%] max-w-5xl h-[90%] max-h-[90vh] flex flex-col">
