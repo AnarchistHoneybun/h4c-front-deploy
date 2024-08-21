@@ -82,7 +82,6 @@ export default function Searchbar({
     <div className="h-full w-full">
       <Input
         onChange={(e) => {
-          console.log(e.target.value);
           setQ(e.target.value);
         }}
       ></Input>

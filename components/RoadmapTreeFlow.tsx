@@ -35,7 +35,6 @@ function Flow() {
 
       
       for (let i in temp["roadmap"]) {
-        console.log(temp['roadmap'], i);
         setNodes((e: any) => [
           ...e,
           {
@@ -62,7 +61,6 @@ function Flow() {
         let sub_step_y_offset = 0;
         // y_offset += 50;
         for (let j in temp["roadmap"][i]["Sub_steps"]) {
-          console.log(sub_step_x_offset, sub_step_y_offset);
           setNodes((e: any) => [
             ...e,
             {

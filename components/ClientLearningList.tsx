@@ -18,7 +18,6 @@ const ClientSkillsList: React.FC<ClientSkillsListProps> = ({
   skills,
   user,
 }) => {
-  console.log(skills);
   function deleteCard(target_skill: string) {
     const formdata = new FormData();
     formdata.append("username", user.email);

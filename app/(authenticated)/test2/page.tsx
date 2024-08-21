@@ -67,8 +67,6 @@ function Flow() {
               },
             ]);
           }
-          
-        console.log(temp['roadmap'][i]);
       }
     }
     temp();
