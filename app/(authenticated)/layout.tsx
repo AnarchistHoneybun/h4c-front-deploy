@@ -22,10 +22,28 @@ export default async function Layout({
     .then((result) => console.log(result))
     .catch((error) => console.error(error));
 
+  const x = await fetch(
+    `http://localhost:8000/list_roadmaps?username=${encodeURIComponent(
+      user!.email
+    )}`
+  );
+  const roadmaps = await x.json();
+  console.log(roadmaps);
   return (
     <div>
       <TabSwitcher className="mb-4" />
-      <div className="min-h-[75vh]">{children}</div>
+      <div className="flex min-h-[75vh]">
+        <div>
+          {Object.keys(roadmaps["roadmaps"]).length > 0 ? (
+            Object.keys(roadmaps["roadmaps"]).map((key: any, i: number) => {
+              return <div className="">{key}</div>;
+            })
+          ) : (
+            <div>No roadmaps made yet!</div>
+          )}
+        </div>
+        <div className="">{children}</div>
+      </div>
       <Footer />
     </div>
   );

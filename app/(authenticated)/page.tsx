@@ -17,45 +17,44 @@ import {
 } from "@/components/ui/table";
 
 export default function Dash() {
-  const [mainCardTitle, setMainCardTitle] = useState("Main Content Area");
-  const [cardTitles, setCardTitles] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [role, setRole] = useState<string[]>([]);
-  const [roadmap, setRoadmap] = useState<Object[]>([]);
-  const supabase = createClient();
-  const [user, setUser] = useState<any>();
+  // const [mainCardTitle, setMainCardTitle] = useState("Main Content Area");
+  // const [cardTitles, setCardTitles] = useState<string[]>([]);
+  // const [loading, setLoading] = useState(true);
+  // const [role, setRole] = useState<string[]>([]);
+  // const [roadmap, setRoadmap] = useState<Object[]>([]);
+  // const supabase = createClient();
+  // const [user, setUser] = useState<any>();
 
-  useEffect(() => {
-    const user = supabase.auth.getUser().then((response) => setUser(response));
-  }, []);
+  // useEffect(() => {
+  //   const user = supabase.auth.getUser().then((response) => setUser(response));
+  // }, []);
 
-  useEffect(() => {
-    if (!user) return;
-    fetch(
-      `http://localhost:8000/get_desired_role?username=${encodeURIComponent(
-        user.data.user?.user_metadata.email
-      )}`
-    )
-      .then((response) => {
-        console.log(response);
-        return response.json();
-      })
-      .then((result) => {
-        console.log(result);
-        setRoadmap(result["roadmap"]);
-        setRole([...role, result["desired_role"]]);
-      })
-      .catch((error) => console.error(error));
-    setLoading(false);
-  }, [user]);
+  // useEffect(() => {
+  //   if (!user) return;
+  //   fetch(
+  //     `http://localhost:8000/list_roadmaps?username=${encodeURIComponent(
+  //       user.data.user?.user_metadata.email
+  //     )}`
+  //   )
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((result) => {
+  //       setRoadmap(result["roadmaps"]);
+  //       setRole([...role, result["desired_role"]]);
+  //     })
+  //     .catch((error) => console.error(error));
+  //   setLoading(false);
+  // }, [user]);
+  // useEffect(()=>{console.log(roadmap)}, [roadmap]);
 
-  const handleCardClick = (title: string) => {
-    setMainCardTitle(title);
-  };
+  // const handleCardClick = (title: string) => {
+  //   setMainCardTitle(title);
+  // };
 
   return (
     <div className="container mx-auto p-4">
-      <div className="flex gap-6">
+      {/* <div className="flex gap-6">
         <div className="w-1/3">
           <ScrollArea className="h-[calc(100vh-12rem)] w-full rounded-md">
             <div className="pr-4 space-y-4">
@@ -134,7 +133,7 @@ export default function Dash() {
             </CardContent>
           </Card>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
