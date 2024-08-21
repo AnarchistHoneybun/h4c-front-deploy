@@ -15,6 +15,7 @@ import RoadmapTreeFlowStream from "@/components/RoadmapTreeFlowStream";
 import { Input } from "@/components/ui/input";
 
 import Leaderboard from "@/components/Leaderboard";
+import { useState } from "react";
 
 export default async function Page() {
   const supabase = createClient();
@@ -72,7 +73,7 @@ export default async function Page() {
                       {role} @ {company}
                     </DialogHeader>
                     <div className="flex-1 overflow-auto">
-                      <RoadmapTreeFlow role={role} company={company}/>
+                      <RoadmapTreeFlow role={role} company={company} />
                     </div>
                   </DialogContent>
                 </Dialog>
@@ -96,19 +97,8 @@ export default async function Page() {
                 Enter the role & company to generate roadmap:{" "}
               </DialogTitle>
             </DialogHeader>
-            <Input className="bg-gray-400" placeholder="Enter role here..." />
-            <Input className="bg-gray-400" placeholder="Enter company here..." />
-            <Dialog>
-              <DialogTrigger>
-                <div className="w-full bg-slate-200">Add</div>
-              </DialogTrigger>
-              <DialogContent className="bg-white rounded-lg shadow-lg w-[90%] max-w-5xl h-[90%] max-h-[90vh] flex flex-col">
-                <DialogHeader>Roadmap for XYZ</DialogHeader>
-                <div className="flex-1 overflow-auto">
-                  <RoadmapTreeFlowStream />
-                </div>
-              </DialogContent>
-            </Dialog>
+            
+            <RoadmapTreeFlowStream />
           </DialogContent>
         </Dialog>
       </div>

@@ -9,6 +9,14 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { randomBytes } from "crypto";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTrigger,
+} from "./ui/dialog";
+import { Input } from "./ui/input";
+import { createClient } from "@/utils/supabase/client";
 
 let initialNodes: any = [];
 
@@ -17,7 +25,10 @@ let initialEdges: any = [];
 function Flow() {
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
-  const [done, setDone] = useState(false);
+  const [role, setRole] = useState<any>();
+  const [company, setCompany] = useState<any>();
+  const supabase = createClient();
+
   const proOptions = { hideAttribution: true };
 
   const onNodesChange = useCallback(
@@ -31,10 +42,14 @@ function Flow() {
   useEffect(() => {
     const socket = new WebSocket("ws://localhost:8000/generate_roadmap");
     socket.onopen = () => {
-      if (done) socket.close();
-      socket.send("mudit.7.gupta+github@gmail.com");
-      socket.send("Chip Designer");
-      socket.send("Intel");
+      async function send_req() {
+        const x = await supabase.auth.getUser();
+        
+        socket.send(x.data.user?.email!);
+        socket.send(role);
+        socket.send(company);
+      }
+      send_req();
     };
     socket.onmessage = (e) => {
       const data = JSON.parse(e.data);
@@ -90,26 +105,48 @@ function Flow() {
     socket.onclose = () => {
       console.log("conn closed");
     };
-    setDone(() => true);
-    console.log(done);
     return () => {
       socket.close();
     };
   }, []);
   return (
-    <div className="h-full w-full">
-      <ReactFlow
-        nodes={nodes}
-        onNodesChange={onNodesChange}
-        edges={edges}
-        onEdgesChange={onEdgesChange}
-        proOptions={proOptions}
-        fitView
-        className="h-full w-full"
-      >
-        <Background />
-        <Controls />
-      </ReactFlow>
+    <div className="">
+      <Input
+        className="bg-gray-400"
+        placeholder="Enter role here..."
+        value={role}
+        onChange={(e) => setRole(e.target.value)}
+      />
+      <Input
+        className="bg-gray-400"
+        placeholder="Enter company here..."
+        value={company}
+        onChange={(e) => setCompany(e.target.value)}
+      />
+      <Dialog>
+        <DialogTrigger>
+          <div className="w-full bg-slate-200">Add</div>
+        </DialogTrigger>
+        <DialogContent className="bg-white rounded-lg shadow-lg w-[90%] max-w-5xl h-[90%] max-h-[90vh] flex flex-col">
+          <DialogHeader>Roadmap for XYZ</DialogHeader>
+          <div className="flex-1 overflow-auto">
+            <div className="h-full w-full">
+              <ReactFlow
+                nodes={nodes}
+                onNodesChange={onNodesChange}
+                edges={edges}
+                onEdgesChange={onEdgesChange}
+                proOptions={proOptions}
+                fitView
+                className="h-full w-full"
+              >
+                <Background />
+                <Controls />
+              </ReactFlow>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
