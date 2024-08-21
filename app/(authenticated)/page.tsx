@@ -11,6 +11,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, Sparkle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import RoadmapTreeFlow from "@/components/RoadmapTreeFlow";
+import RoadmapTreeFlowStream from "@/components/RoadmapTreeFlowStream";
+import { Input } from "@/components/ui/input";
 
 import Leaderboard from "@/components/Leaderboard";
 
@@ -46,20 +48,17 @@ export default async function Page() {
       </h1>
       <div className="grid grid-cols-3 gap-6">
         {Object.keys(roadmaps["roadmaps"]).map((key: any, i: number) => (
-          <Card
-            key={i}
-            className=""
-          >
+          <Card key={i} className="">
             <CardHeader>
               <CardTitle className="text-lg">{key}</CardTitle>
             </CardHeader>
             <CardContent className="flex justify-between items-center">
               <Dialog>
                 <DialogTrigger>
-                                <Button variant="outline" className="flex items-center gap-2">
-                <Sparkle className="w-5 h-5" />
-                Go
-              </Button>
+                  <Button variant="outline" className="flex items-center gap-2">
+                    <Sparkle className="w-5 h-5" />
+                    Go
+                  </Button>
                 </DialogTrigger>
                 <DialogContent className="bg-white rounded-lg shadow-lg w-[90%] max-w-5xl h-[90%] max-h-[90vh] flex flex-col">
                   <DialogHeader>{key}</DialogHeader>
@@ -71,12 +70,36 @@ export default async function Page() {
             </CardContent>
           </Card>
         ))}
-        <Card className="cursor-pointer bg-slate-200 text-gray-400 border-dashed border-4 border-gray-400 hover:border-gray-900 hover:bg-slate-300 hover:text-gray-900  transition-colors">
-          <CardContent className="flex flex-col items-center  justify-center hover:text-gray-900 h-full gap-2">
-            <Plus className="text-4xl  " />
-            <div className=" font-bold">New Roadmap</div>
-          </CardContent>
-        </Card>
+
+        <Dialog>
+          <DialogTrigger asChild>
+            <Card className="cursor-pointer bg-slate-200 text-gray-400 border-dashed border-4 border-gray-400 hover:border-gray-900 hover:bg-slate-300 hover:text-gray-900  transition-colors">
+              <CardContent className="flex flex-col items-center  justify-center hover:text-gray-900 h-full gap-2">
+                <Plus className="text-4xl  " />
+                <div className=" font-bold">New Roadmap</div>
+              </CardContent>
+            </Card>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>
+                Enter the role to generate a roadmap for:{" "}
+              </DialogTitle>
+            </DialogHeader>
+            <Input placeholder="Enter here..." />
+            <Dialog>
+              <DialogTrigger>
+                <div className="w-full bg-slate-200">Add</div>
+              </DialogTrigger>
+              <DialogContent className="bg-white rounded-lg shadow-lg w-[90%] max-w-5xl h-[90%] max-h-[90vh] flex flex-col">
+                <DialogHeader>Roadmap for XYZ</DialogHeader>
+                <div className="flex-1 overflow-auto">
+                  <RoadmapTreeFlowStream />
+                </div>
+              </DialogContent>
+            </Dialog>
+          </DialogContent>
+        </Dialog>
       </div>
       <Leaderboard />
     </div>
