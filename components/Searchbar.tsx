@@ -43,6 +43,8 @@ export default function Searchbar({
       formdata.append("experience", q);
     } else if (secType == "learnstyle") {
       formdata.append("learning_styles", q);
+    } else if (secType == "education") {
+      formdata.append("education", q);
     }
     setQ("");
     setQres([]);
@@ -66,6 +68,11 @@ export default function Searchbar({
         .then((response) => response.text())
         .then((result) => console.log(result))
         .catch((error) => console.error(error));
+    } else if (secType == "education") {
+      fetch("http://localhost:8000/add_education", requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.error(error));
     }
 
     reval("/profile");
@@ -80,7 +87,7 @@ export default function Searchbar({
         }}
       ></Input>
       <Button className="my-2 w-full" onClick={addSkills}>
-        Add skill
+        Add
       </Button>
     </div>
   );

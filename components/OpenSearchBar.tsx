@@ -26,7 +26,7 @@ export default function OpenSearchBar({ user, trigger, secType }: OpenSearchBarP
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Add a new skill</DialogTitle>
+            <DialogTitle>{secType=="skill"?"Add a new skill":secType=="education"?"Add Education":secType=="experience"?"Add Experience":"Add a new learning style"}</DialogTitle>
             <DialogDescription>
             </DialogDescription>
           </DialogHeader>
