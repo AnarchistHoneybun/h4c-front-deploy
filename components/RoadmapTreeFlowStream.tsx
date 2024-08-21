@@ -9,7 +9,13 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { randomBytes } from "crypto";
-
+import { createClient } from "@/utils/supabase/client";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTrigger,
+} from "./ui/dialog";
 let initialNodes: any = [];
 
 let initialEdges: any = [];
@@ -19,6 +25,8 @@ function Flow() {
   const [edges, setEdges] = useState(initialEdges);
   const [done, setDone] = useState(false);
   const proOptions = { hideAttribution: true };
+  const supabase = createClient();
+  const [user, setUser] = useState<any>();
 
   const onNodesChange = useCallback(
     (changes: any) => setNodes((nds: any) => applyNodeChanges(changes, nds)),
@@ -29,10 +37,14 @@ function Flow() {
     []
   );
   useEffect(() => {
+    async function get_user() {
+      const x = await supabase.auth.getUser();
+      setUser(() => x.data.user?.email);
+    }
     const socket = new WebSocket("ws://localhost:8000/generate_roadmap");
     socket.onopen = () => {
       if (done) socket.close();
-      socket.send("mudit.7.gupta+github@gmail.com");
+      socket.send(encodeURIComponent(user));
       socket.send("Chip Designer");
       socket.send("Intel");
     };
@@ -97,20 +109,30 @@ function Flow() {
     };
   }, []);
   return (
-    <div className="h-full w-full">
-      <ReactFlow
-        nodes={nodes}
-        onNodesChange={onNodesChange}
-        edges={edges}
-        onEdgesChange={onEdgesChange}
-        proOptions={proOptions}
-        fitView
-        className="h-full w-full"
-      >
-        <Background />
-        <Controls />
-      </ReactFlow>
-    </div>
+    <Dialog>
+      <DialogTrigger>
+        <div className="w-full bg-slate-200">Add</div>
+      </DialogTrigger>
+      <DialogContent className="bg-white rounded-lg shadow-lg w-[90%] max-w-5xl h-[90%] max-h-[90vh] flex flex-col">
+        <DialogHeader>Roadmap for XYZ</DialogHeader>
+        <div className="flex-1 overflow-auto">
+          <div className="h-full w-full">
+            <ReactFlow
+              nodes={nodes}
+              onNodesChange={onNodesChange}
+              edges={edges}
+              onEdgesChange={onEdgesChange}
+              proOptions={proOptions}
+              fitView
+              className="h-full w-full"
+            >
+              <Background />
+              <Controls />
+            </ReactFlow>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 
