@@ -138,8 +138,7 @@ import { createClient } from "@/utils/supabase/server";
 //   );
 // }
 
-export default async function Page(){
-
+export default async function Page() {
   const supabase = createClient();
   const user = (await supabase.auth.getUser()).data.user?.user_metadata;
   const formdata = new FormData();
@@ -149,23 +148,35 @@ export default async function Page(){
     method: "POST",
     body: formdata,
   };
-  
+
   fetch("http://localhost:8000/create_account_from_email", requestOptions)
     .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.error(error));
 
-  const x = await fetch(`http://localhost:8000/list_roadmaps?username=${encodeURIComponent(user!.email)}`);
+  const x = await fetch(
+    `http://localhost:8000/list_roadmaps?username=${encodeURIComponent(
+      user!.email
+    )}`
+  );
   const roadmaps = await x.json();
-  console.log(roadmaps);
 
-  return(
+  if (roadmaps["roadmaps"]) {
+    return (
+      <div className="">
+        <div>No roadmaps made yet!</div>
+      </div>
+    );
+  }
+  return (
     <div className="">
-      {Object.keys(roadmaps['roadmaps']).length>0?Object.keys(roadmaps['roadmaps']).map((key:any, i:number)=>{
-          return (
-            <div className="">{key}</div>
-          ) 
-        }):<div>No roadmaps made yet!</div>}
+      {Object.keys(roadmaps["roadmaps"]).length > 0 ? (
+        Object.keys(roadmaps["roadmaps"]).map((key: any, i: number) => {
+          return <div className="">{key}</div>;
+        })
+      ) : (
+        <div>No roadmaps made yet!</div>
+      )}
     </div>
-  )
+  );
 }
