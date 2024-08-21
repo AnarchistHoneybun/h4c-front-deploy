@@ -48,20 +48,17 @@ export default async function Page() {
       </h1>
       <div className="grid grid-cols-3 gap-6">
         {Object.keys(roadmaps["roadmaps"]).map((key: any, i: number) => (
-          <Card
-            key={i}
-            className=""
-          >
+          <Card key={i} className="">
             <CardHeader>
               <CardTitle className="text-lg">{key}</CardTitle>
             </CardHeader>
             <CardContent className="flex justify-between items-center">
               <Dialog>
                 <DialogTrigger>
-                                <Button variant="outline" className="flex items-center gap-2">
-                <Sparkle className="w-5 h-5" />
-                Go
-              </Button>
+                  <Button variant="outline" className="flex items-center gap-2">
+                    <Sparkle className="w-5 h-5" />
+                    Go
+                  </Button>
                 </DialogTrigger>
                 <DialogContent className="bg-white rounded-lg shadow-lg w-[90%] max-w-5xl h-[90%] max-h-[90vh] flex flex-col">
                   <DialogHeader>{key}</DialogHeader>
@@ -76,10 +73,10 @@ export default async function Page() {
 
         <Dialog>
           <DialogTrigger asChild>
-            <Card className="cursor-pointer hover:bg-gray-300 transition-colors">
-              <CardContent className="flex flex-col items-center justify-center h-full gap-2">
-                <Plus className="text-4xl" />
-                <div className="text-gray-600 font-bold">New Roadmap</div>
+            <Card className="cursor-pointer bg-slate-200 text-gray-400 border-dashed border-4 border-gray-400 hover:border-gray-900 hover:bg-slate-300 hover:text-gray-900  transition-colors">
+              <CardContent className="flex flex-col items-center  justify-center hover:text-gray-900 h-full gap-2">
+                <Plus className="text-4xl  " />
+                <div className=" font-bold">New Roadmap</div>
               </CardContent>
             </Card>
           </DialogTrigger>
@@ -103,12 +100,6 @@ export default async function Page() {
             </Dialog>
           </DialogContent>
         </Dialog>
-        <Card className="cursor-pointer bg-slate-200 text-gray-400 border-dashed border-4 border-gray-400 hover:border-gray-900 hover:bg-slate-300 hover:text-gray-900  transition-colors">
-          <CardContent className="flex flex-col items-center  justify-center hover:text-gray-900 h-full gap-2">
-            <Plus className="text-4xl  " />
-            <div className=" font-bold">New Roadmap</div>
-          </CardContent>
-        </Card>
       </div>
       <Leaderboard />
     </div>
