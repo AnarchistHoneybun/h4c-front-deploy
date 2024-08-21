@@ -161,7 +161,7 @@ export default async function Page() {
   );
   const roadmaps = await x.json();
 
-  if (roadmaps["roadmaps"]) {
+  if (!roadmaps["roadmaps"]) {
     return (
       <div className="">
         <div>No roadmaps made yet!</div>
