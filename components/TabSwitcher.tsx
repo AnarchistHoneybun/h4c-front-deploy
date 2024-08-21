@@ -1,50 +1,49 @@
 "use client";
-import { Dock, DockIcon } from "@/components/magicui/dock";
-import Link from "next/link";
-import { Home, ChartArea, User, LogOut, BookOpenText } from "lucide-react";
+
 import { Button } from "./ui/button";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
+import { BookOpenText, User, LogOut } from "lucide-react";
 
 export default function TabSwitcher({ className }: { className?: string }) {
   const router = useRouter();
+
   async function signOut() {
     const supabase = createClient();
     await supabase.auth.signOut();
     router.replace("/auth");
   }
+
   return (
-    <div className={className}>
-      <Dock className="gap-8" direction="middle" magnification={90}>
-        <DockIcon className="mx-8">
-          <Link
-            className="flex items-center justify-center px-4 py-2 rounded-lg hover:bg-tabhover hover:bg-opacity-20 transition-all duration-300"
-            href="/"
-          >
-            <BookOpenText className="mr-2" />
-            <span>Modules</span>
-          </Link>
-        </DockIcon>
-        <DockIcon className="mx-6">
-          <Link
-            className="flex items-center justify-center px-4 py-2 rounded-lg hover:bg-tabhover hover:bg-opacity-20 transition-all duration-300"
-            href="/profile"
-          >
-            <User className="mr-2" />
-            <span>Profile</span>
-          </Link>
-        </DockIcon>
-        <DockIcon className="mx-10">
-          <Link
-            className="flex items-center justify-center px-4 py-2 rounded-lg hover:bg-tabhover hover:bg-opacity-20 transition-all duration-300 bg-destructive"
-            href="/"
-            onClick={signOut}
-          >
-            <LogOut className="mr-2" />
-            <span>Logout</span>
-          </Link>
-        </DockIcon>
-      </Dock>
+    <div className={`${className} flex justify-between bg-green-500 items-center py-2 px-6`}>
+      <div className="text-2xl pl-24 font-bold" style={{ color: "hsl(125, 38%, 94%)" }}>SkillJourney</div>
+      <div className="flex items-center gap-8">
+        <Button
+          variant="ghost"
+          className="flex items-center gap-2 hover:bg-tabactive hover:text-white transition-colors"
+          onClick={() => router.push("/")}
+        >
+          <BookOpenText className="w-6 h-6" />
+          <span>Modules</span>
+        </Button>
+        <Button
+          variant="ghost"
+          className="flex items-center gap-2 hover:bg-tabactive hover:text-white transition-colors"
+          onClick={() => router.push("/profile")}
+        >
+          <User className="w-6 h-6" />
+          <span>Profile</span>
+        </Button>
+      </div>
+      <div className="pr-24"><Button
+        variant="destructive"
+        className="flex items-center gap-2 hover:bg-black hover:text-white bg-white text-black transition-colors rounded-full"
+        onClick={signOut}
+      >
+        <LogOut className="w-6 h-6" />
+        <span>Logout</span>
+      </Button></div>
+      
     </div>
   );
 }

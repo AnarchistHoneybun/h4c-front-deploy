@@ -28,6 +28,7 @@ const ClientSkillsList: React.FC<ClientSkillsListProps> = ({
       body: formdata,
     };
 
+
     fetch("http://localhost:8000/delete_skills", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
@@ -35,6 +36,14 @@ const ClientSkillsList: React.FC<ClientSkillsListProps> = ({
 
     reval("/profile");
   }
+
+  const truncateSkillName = (skillName: string, maxLength: number = 9) => {
+    if (skillName.length > maxLength) {
+      return `${skillName.slice(0, maxLength)}...`;
+    }
+    return skillName;
+  };
+  
   return (
     <ScrollArea className="w-full whitespace-nowrap">
       <div className="flex space-x-4 p-4 items-center">
@@ -42,7 +51,7 @@ const ClientSkillsList: React.FC<ClientSkillsListProps> = ({
           <Card key={index} className="flex-shrink-0 w-32 h-20">
             <CardContent className="p-0 h-full">
               <div className="flex flex-col items-center justify-center h-full gap-1">
-                <p className="text-center font-bold">{skill}</p>
+                <p className="text-center font-bold">{truncateSkillName(skill)}</p>
                 <Trash
                   id={skill}
                   size={20}

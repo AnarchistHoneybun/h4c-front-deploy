@@ -20,14 +20,15 @@ async function signInWithGithub() {
 const LandingPageNavbar: React.FC = () => {
   return (
     <nav className="flex justify-between items-center bg-green-500 px-4 py-2">
-      <div className="text-white text-2xl font-bold">SkillJourney</div>
+      <div className="text-white text-2xl pl-24 font-bold">SkillJourney</div>
       <div>
-        <Button
+        <div className="pr-24"><Button
           onClick={signInWithGithub}
           className="bg-white text-black px-4 py-2 rounded-full"
         >
           Login with GitHub
-        </Button>
+        </Button></div>
+        
       </div>
     </nav>
   );
