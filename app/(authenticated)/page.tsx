@@ -58,7 +58,7 @@ export default async function Page() {
                   Go
                 </DialogTrigger>
                 <DialogContent className="bg-white rounded-lg shadow-lg w-[90%] max-w-5xl h-[90%] max-h-[90vh] flex flex-col">
-                  <DialogHeader>Roadmap for XYZ</DialogHeader>
+                  <DialogHeader>{key}</DialogHeader>
                   <div className="flex-1 overflow-auto">
                     <RoadmapTreeFlow />
                   </div>

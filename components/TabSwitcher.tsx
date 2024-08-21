@@ -22,6 +22,7 @@ export default function TabSwitcher({ className }: { className?: string }) {
           variant="ghost"
           className="flex items-center gap-2 hover:bg-tabactive hover:text-white transition-colors"
           onClick={() => router.push("/")}
+          style={{ color: "hsl(125, 38%, 94%)" }}
         >
           <BookOpenText className="w-6 h-6" />
           <span>Modules</span>
@@ -30,6 +31,7 @@ export default function TabSwitcher({ className }: { className?: string }) {
           variant="ghost"
           className="flex items-center gap-2 hover:bg-tabactive hover:text-white transition-colors"
           onClick={() => router.push("/profile")}
+          style={{ color: "hsl(125, 38%, 94%)" }}
         >
           <User className="w-6 h-6" />
           <span>Profile</span>
