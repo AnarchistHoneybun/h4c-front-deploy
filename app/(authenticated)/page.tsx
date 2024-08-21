@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Plus } from "lucide-react";
+import {createClient} from "@/utils/supabase/client";
 import {
   Table,
   TableBody,
@@ -21,16 +22,19 @@ export default function Dash() {
   const [loading, setLoading] = useState(true);
   const [role, setRole] = useState<string[]>([]);
   const [roadmap, setRoadmap] = useState<Object[]>([]);
-
+  const supabase = createClient();
+  const [user, setUser] = useState<any>();
+  
   useEffect(() => {
-    const requestOptions = {
-      method: "GET",
-    };
+      const user = supabase.auth.getUser().then((response)=>setUser(response));
+  }, []);
 
+  useEffect(()=>{
+    if(!user) return;
     fetch(
-      "http://localhost:8000/get_desired_role?username=mudit.7.gupta%2Bgithub@gmail.com"
+      `http://localhost:8000/get_desired_role?username=${encodeURIComponent(user.data.user?.user_metadata.email)}`
     )
-      .then((response) => response.json())
+      .then((response) => {console.log(response); return response.json()})
       .then((result) => {
         console.log(result);
         setRoadmap(result["roadmap"]);
@@ -38,7 +42,7 @@ export default function Dash() {
       })
       .catch((error) => console.error(error));
     setLoading(false);
-  }, []);
+  }, [user]);
 
   const handleCardClick = (title: string) => {
     setMainCardTitle(title);
@@ -89,7 +93,6 @@ export default function Dash() {
                   </TableRow>
                 </TableHeader>
                 {loading ? (
-                  // <div>Loading data from server...</div>
                   <TableBody><TableRow><TableCell>Loading data from server...</TableCell></TableRow></TableBody>
                 ) : (
                   <TableBody className="w-full">
