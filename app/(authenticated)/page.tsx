@@ -1,7 +1,16 @@
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { createClient } from "@/utils/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, Sparkle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import RoadmapTreeFlow from "@/components/RoadmapTreeFlow";
 
 export default async function Page() {
   const supabase = createClient();
@@ -35,15 +44,24 @@ export default async function Page() {
       </h1>
       <div className="grid grid-cols-3 gap-6">
         {Object.keys(roadmaps["roadmaps"]).map((key: any, i: number) => (
-          <Card key={i} className="cursor-pointer hover:bg-accent transition-colors">
+          <Card
+            key={i}
+            className="cursor-pointer hover:bg-accent transition-colors"
+          >
             <CardHeader>
               <CardTitle className="text-lg">{key}</CardTitle>
             </CardHeader>
             <CardContent className="flex justify-between items-center">
-              <Button variant="outline" className="flex items-center gap-2">
-                <Sparkle className="w-5 h-5" />
-                Go
-              </Button>
+              <Dialog>
+                <DialogTrigger>
+                  <Sparkle className="w-5 h-5" />
+                  Go
+                </DialogTrigger>
+                <DialogContent className="h-screen w-screen">
+                  <DialogHeader>Roadmap for XYZ</DialogHeader>
+                  <RoadmapTreeFlow />
+                </DialogContent>
+              </Dialog>
             </CardContent>
           </Card>
         ))}
