@@ -13,7 +13,9 @@ import {
 import { useToast } from "./ui/use-toast";
 import { useState } from "react";
 import { UserMetadata } from "@supabase/supabase-js";
-import reval_profile from "@/utils/reval"; 
+import reval from "@/utils/reval";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 
 interface SearchItem {
   Category: string;
@@ -21,65 +23,65 @@ interface SearchItem {
   _id: Object;
 }
 
-export default function Searchbar({ user }: { user: UserMetadata }) {
+export default function Searchbar({
+  user,
+  secType,
+}: {
+  user: UserMetadata;
+  secType: string;
+}) {
   const [q, setQ] = useState("");
   const [qres, setQres] = useState<Array<SearchItem>>([]);
   const { toast } = useToast();
 
-  async function fetchSearchRes() {
-    if (q.length == 0) return;
-
-    const res = await fetch(`http://localhost:8000/search?q=${q}`);
-    const res_json: Array<SearchItem> = await res.json();
-    setQres(res_json);
-    if (res_json.length == 0)
-      toast({
-        title: "No skill found!",
-        variant: "destructive",
-      });
-    setQ("");
-  }
-
-  function addSkills(skill: string) {
+  function addSkills() {
     const formdata = new FormData();
     formdata.append("username", user.email);
-    formdata.append("skills", skill);
-
+    if (secType == "skill") {
+      formdata.append("skills", q);
+    } else if (secType == "experience") {
+      formdata.append("experience", q);
+    } else if (secType == "learnstyle") {
+      formdata.append("learning_styles", q);
+    }
     setQ("");
     setQres([]);
     const requestOptions = {
       method: "POST",
       body: formdata,
     };
+    console.log(secType);
+    if (secType == "skill") {
+      fetch("http://localhost:8000/add_skills", requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.error(error));
+    } else if (secType == "experience") {
+      fetch("http://localhost:8000/add_experience", requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.error(error));
+    } else if (secType == "learnstyle") {
+      fetch("http://localhost:8000/add_learning_styles", requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.error(error));
+    }
 
-    fetch("http://localhost:8000/add_skills", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.error(error));
-
-    reval_profile();
+    reval("/profile");
   }
 
   return (
-    <Command className="rounded-lg border shadow-md">
-      <CommandInput
-        placeholder="Enter skill..."
-        value={q}
-        onValueChange={(e) => setQ(e)}
-        onKeyDown={(e) => {
-          if (e.key == "Enter") fetchSearchRes();
+    <div className="h-full w-full">
+      <Input
+        onChange={(e) => {
+          console.log(e.target.value);
+          setQ(e.target.value);
         }}
-      />
-      <CommandList>
-        <CommandEmpty>Press enter to search</CommandEmpty>
-        {qres.map((e, key) => (
-          <CommandGroup heading={e.Category}>
-            <CommandItem key={key} onSelect={(e) => addSkills(e)}>
-              {e.Name}
-            </CommandItem>
-          </CommandGroup>
-        ))}
-      </CommandList>
-    </Command>
+      ></Input>
+      <Button className="my-2 w-full" onClick={addSkills}>
+        Add skill
+      </Button>
+    </div>
   );
 }

@@ -21,14 +21,14 @@ const ClientSkillsList: React.FC<ClientSkillsListProps> = ({
   function deleteCard(target_skill: string) {
     const formdata = new FormData();
     formdata.append("username", user.email);
-    formdata.append("skills", target_skill);
+    formdata.append("experience", target_skill);
 
     const requestOptions = {
       method: "POST",
       body: formdata,
     };
 
-    fetch("http://localhost:8000/delete_skills", requestOptions)
+    fetch("http://localhost:8000/delete_experience", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.error(error));
@@ -55,7 +55,7 @@ const ClientSkillsList: React.FC<ClientSkillsListProps> = ({
           </Card>
         ))}
         <OpenSearchBar
-          secType="skill"
+          secType="experience"
           user={user}
           trigger={
             <Card className="bg-foreground text-background cursor-pointer hover:bg-loginhover hover:bg-opacity-30 hover:border-dashed transition-colors border-dashed flex-shrink-0 h-20 w-32">

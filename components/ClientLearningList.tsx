@@ -10,7 +10,7 @@ import { Button } from "./ui/button";
 import reval from "@/utils/reval";
 
 interface ClientSkillsListProps {
-  skills: string[];
+  skills: any;
   user: UserMetadata;
 }
 
@@ -18,17 +18,18 @@ const ClientSkillsList: React.FC<ClientSkillsListProps> = ({
   skills,
   user,
 }) => {
+  console.log(skills);
   function deleteCard(target_skill: string) {
     const formdata = new FormData();
     formdata.append("username", user.email);
-    formdata.append("skills", target_skill);
+    formdata.append("learning_styles", target_skill);
 
     const requestOptions = {
       method: "POST",
       body: formdata,
     };
 
-    fetch("http://localhost:8000/delete_skills", requestOptions)
+    fetch("http://localhost:8000/delete_learning_styles", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.error(error));
@@ -38,7 +39,7 @@ const ClientSkillsList: React.FC<ClientSkillsListProps> = ({
   return (
     <ScrollArea className="w-full whitespace-nowrap">
       <div className="flex space-x-4 p-4 items-center">
-        {skills.map((skill, index) => (
+        {skills.learning_styles!.map((skill: any, index: number) => (
           <Card key={index} className="flex-shrink-0 w-32 h-20">
             <CardContent className="p-0 h-full">
               <div className="flex flex-col items-center justify-center h-full gap-1">
@@ -55,7 +56,7 @@ const ClientSkillsList: React.FC<ClientSkillsListProps> = ({
           </Card>
         ))}
         <OpenSearchBar
-          secType="skill"
+          secType="learnstyle"
           user={user}
           trigger={
             <Card className="bg-foreground text-background cursor-pointer hover:bg-loginhover hover:bg-opacity-30 hover:border-dashed transition-colors border-dashed flex-shrink-0 h-20 w-32">

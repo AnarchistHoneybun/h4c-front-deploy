@@ -15,9 +15,10 @@ import { UserMetadata } from "@supabase/supabase-js";
 interface OpenSearchBarProps {
   user: UserMetadata;
   trigger: React.ReactNode;
+  secType: string
 }
 
-export default function OpenSearchBar({ user, trigger }: OpenSearchBarProps) {
+export default function OpenSearchBar({ user, trigger, secType }: OpenSearchBarProps) {
   return (
       <Dialog>
         <DialogTrigger asChild>
@@ -27,9 +28,9 @@ export default function OpenSearchBar({ user, trigger }: OpenSearchBarProps) {
           <DialogHeader>
             <DialogTitle>Add a new skill</DialogTitle>
             <DialogDescription>
-              <Searchbar user={user}/>
             </DialogDescription>
           </DialogHeader>
+            <Searchbar secType={secType} user={user}/>
         </DialogContent>
       </Dialog>
   );
