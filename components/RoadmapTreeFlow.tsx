@@ -1,5 +1,6 @@
 "use client";
 import { useState, useCallback, useEffect } from "react";
+import { createClient } from "@/utils/supabase/client";
 import {
   ReactFlow,
   Controls,
@@ -15,10 +16,17 @@ import { randomBytes } from "crypto";
 let initialNodes: Node[] = [];
 let initialEdges: Edge[] = [];
 
-function Flow() {
+function Flow({
+  roleString,
+  companyString,
+}: {
+  roleString: string;
+  companyString: string;
+}) {
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
-
+  const [user, setUser] = useState<any>();
+  const supabase = createClient();
   const onNodesChange = useCallback(
     (changes: any) => setNodes((nds: any) => applyNodeChanges(changes, nds)),
     []
@@ -27,28 +35,39 @@ function Flow() {
     (changes: any) => setEdges((eds: any) => applyEdgeChanges(changes, eds)),
     []
   );
-
+  useEffect(() => {
+    async function get_user() {
+      const x = await supabase.auth.getUser();
+      setUser(x.data.user);
+    }
+    get_user();
+  }, []);
   useEffect(() => {
     async function temp() {
-      const x = await fetch("http://localhost:8000/test");
+      if (!user) return;
+      console.log(user.email);
+      const x = await fetch(`http://localhost:8000/roadmap?username=${encodeURI(user.email)}&role=${roleString}&company=${companyString}`);
       const temp = await x.json();
 
-      
       for (let i in temp["roadmap"]) {
         setNodes((e: any) => [
           ...e,
           {
             id: temp["roadmap"][i]["Step_name"],
-            data: { label: (<div style={{ fontWeight: "bold", fontSize: "16px" }}>
-              {temp["roadmap"][i]["Step_name"]}
-            </div>) },
-            position: { x: 1000, y: (parseInt(i)-1)*100 },
+            data: {
+              label: (
+                <div style={{ fontWeight: "bold", fontSize: "16px" }}>
+                  {temp["roadmap"][i]["Step_name"]}
+                </div>
+              ),
+            },
+            position: { x: 1000, y: (parseInt(i) - 1) * 100 },
             style: {
               border: "3px solid green",
             },
           },
         ]);
-        
+
         for (let j in temp["roadmap"][i]["Prerequisites"]) {
           setEdges((e: any) => [
             ...e,
@@ -62,7 +81,7 @@ function Flow() {
             },
           ]);
         }
-        
+
         // let x_offset = 100;
         // let y_offset = 50;
         let sub_step_x_offset = 0;
@@ -87,8 +106,8 @@ function Flow() {
                 ),
               },
               position: {
-                x: (parseInt(j))*180+sub_step_x_offset,
-                y: (parseInt(i))*200+sub_step_y_offset+(parseInt(j))*20,
+                x: parseInt(j) * 180 + sub_step_x_offset,
+                y: parseInt(i) * 200 + sub_step_y_offset + parseInt(j) * 20,
               },
               style: {
                 border: "3px solid red",
@@ -111,7 +130,7 @@ function Flow() {
       }
     }
     temp();
-  }, []);
+  }, [user]);
 
   return (
     <div className="h-full w-full">

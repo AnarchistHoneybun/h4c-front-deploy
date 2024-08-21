@@ -59,20 +59,23 @@ export default async function Page() {
               <CardContent className="flex justify-between items-center">
                 <Dialog>
                   <DialogTrigger>
-                    <Button
+                    {/* <Button
                       variant="outline"
                       className="flex items-center gap-2"
-                    >
-                      <Sparkle className="w-5 h-5" />
-                      Go
-                    </Button>
+                    > */}
+                    <Sparkle className="w-5 h-5" />
+                    Go
+                    {/* </Button> */}
                   </DialogTrigger>
                   <DialogContent className="bg-white rounded-lg shadow-lg w-[90%] max-w-5xl h-[90%] max-h-[90vh] flex flex-col">
                     <DialogHeader>
                       {role} @ {company}
                     </DialogHeader>
                     <div className="flex-1 overflow-auto">
-                      <RoadmapTreeFlow />
+                      <RoadmapTreeFlow
+                        roleString={role}
+                        companyString={company}
+                      />
                     </div>
                   </DialogContent>
                 </Dialog>
@@ -81,36 +84,7 @@ export default async function Page() {
           );
         })}
 
-        <Dialog>
-          <DialogTrigger asChild>
-            <Card className="cursor-pointer bg-slate-200 text-gray-400 border-dashed border-4 border-gray-400 hover:border-gray-900 hover:bg-slate-300 hover:text-gray-900  transition-colors">
-              <CardContent className="flex flex-col items-center  justify-center hover:text-gray-900 h-full gap-2">
-                <Plus className="text-4xl  " />
-                <div className=" font-bold">New Roadmap</div>
-              </CardContent>
-            </Card>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>
-                Enter the role & company to generate roadmap:{" "}
-              </DialogTitle>
-            </DialogHeader>
-            <Input className="bg-gray-400" placeholder="Enter role here..." />
-            <Input className="bg-gray-400" placeholder="Enter company here..." />
-            <Dialog>
-              <DialogTrigger>
-                <div className="w-full bg-slate-200">Add</div>
-              </DialogTrigger>
-              <DialogContent className="bg-white rounded-lg shadow-lg w-[90%] max-w-5xl h-[90%] max-h-[90vh] flex flex-col">
-                <DialogHeader>Roadmap for XYZ</DialogHeader>
-                <div className="flex-1 overflow-auto">
-                  <RoadmapTreeFlowStream />
-                </div>
-              </DialogContent>
-            </Dialog>
-          </DialogContent>
-        </Dialog>
+        <RoadmapTreeFlowStream />
       </div>
       <Leaderboard />
     </div>
