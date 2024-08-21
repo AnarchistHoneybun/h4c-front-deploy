@@ -32,7 +32,7 @@ export default function Dash() {
   useEffect(()=>{
     if(!user) return;
     fetch(
-      `http://localhost:8000/get_desired_role?username=${encodeURIComponent(user.data.user?.user_metadata.email)}`
+      `http://localhost:8000/get_desired_role?username=${encodeURIComponent(user.data.user?.user_metadata.email)}}`
     )
       .then((response) => {console.log(response); return response.json()})
       .then((result) => {
