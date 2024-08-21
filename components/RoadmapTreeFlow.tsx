@@ -33,8 +33,8 @@ function Flow() {
       const x = await fetch("http://localhost:8000/test");
       const temp = await x.json();
 
-      let x_offset = 200;
-      let y_offset = 100;
+      let x_offset = 100;
+      let y_offset = 50;
 
       for (let i in temp["roadmap"]) {
         setNodes((e: any) => [
@@ -57,6 +57,9 @@ function Flow() {
           ]);
         }
 
+        let sub_step_x_offset = x_offset + 50;
+        let sub_step_y_offset = y_offset;
+        y_offset += 50;
         for (let j in temp["roadmap"][i]["Sub_steps"]) {
           setNodes((e: any) => [
             ...e,
@@ -64,8 +67,8 @@ function Flow() {
               id: temp["roadmap"][i]["Sub_steps"][j]["Sub_step_name"],
               data: { label: temp["roadmap"][i]["Sub_steps"][j]["Sub_step_name"] },
               position: {
-                x: x_offset + 100,
-                y: Math.random() < 0.5 ? y_offset - 50 : y_offset + 50,
+                x: sub_step_x_offset,
+                y: sub_step_y_offset,
               },
             },
           ]);
@@ -77,9 +80,11 @@ function Flow() {
               target: temp["roadmap"][i]["Sub_steps"][j]["Sub_step_name"],
             },
           ]);
+          sub_step_y_offset += 50;
+          sub_step_x_offset += 50;
         }
 
-        x_offset += 80;
+        x_offset += 200;
         y_offset += Math.random() < 0.5 ? 50 : -50;
       }
     }
