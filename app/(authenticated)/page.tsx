@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Plus } from "lucide-react";
-import {createClient} from "@/utils/supabase/client";
+import { createClient } from "@/utils/supabase/client";
 import {
   Table,
   TableBody,
@@ -24,17 +24,22 @@ export default function Dash() {
   const [roadmap, setRoadmap] = useState<Object[]>([]);
   const supabase = createClient();
   const [user, setUser] = useState<any>();
-  
+
   useEffect(() => {
-      const user = supabase.auth.getUser().then((response)=>setUser(response));
+    const user = supabase.auth.getUser().then((response) => setUser(response));
   }, []);
 
-  useEffect(()=>{
-    if(!user) return;
+  useEffect(() => {
+    if (!user) return;
     fetch(
-      `http://localhost:8000/get_desired_role?username=${encodeURIComponent(user.data.user?.user_metadata.email)}`
+      `http://localhost:8000/get_desired_role?username=${encodeURIComponent(
+        user.data.user?.user_metadata.email
+      )}`
     )
-      .then((response) => {console.log(response); return response.json()})
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
       .then((result) => {
         console.log(result);
         setRoadmap(result["roadmap"]);
@@ -93,7 +98,11 @@ export default function Dash() {
                   </TableRow>
                 </TableHeader>
                 {loading ? (
-                  <TableBody><TableRow><TableCell>Loading data from server...</TableCell></TableRow></TableBody>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Loading data from server...</TableCell>
+                    </TableRow>
+                  </TableBody>
                 ) : (
                   <TableBody className="w-full">
                     {roadmap.map((e: any, i) => (
@@ -102,11 +111,19 @@ export default function Dash() {
                         <TableCell>
                           {e.skills.map((f: any) => (
                             <div>
-                              {f.name} : {(f.level as string).charAt(0).toUpperCase().concat((f.level as string).slice(1))}
+                              {f.name} :{" "}
+                              {(f.level as string)
+                                .charAt(0)
+                                .toUpperCase()
+                                .concat((f.level as string).slice(1))}
                             </div>
                           ))}
                         </TableCell>
-                        <TableCell className={`text-right ${e.completed ? "text-green-600" : "text-red-600"}`} >
+                        <TableCell
+                          className={`text-right ${
+                            e.completed ? "text-green-600" : "text-red-600"
+                          }`}
+                        >
                           {e.completed ? "Completed" : "To-Do"}
                         </TableCell>
                       </TableRow>
