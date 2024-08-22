@@ -46,15 +46,21 @@ export default async function Profile() {
     <div className="container mx-auto px-4 w-3/4">
       <div className="my-8">
         <UserInfo user={user!} />
-        <Dialog>
-          <DialogTrigger><div className="">Open</div></DialogTrigger>
-          <DialogContent>
-            <DialogHeader>Recommended LinkedIn Profiles</DialogHeader>
-            {rec_profiles.map((x: any, i: any)=>(
-              <div className="">{x.user}</div>
-            ))}
-          </DialogContent>
-        </Dialog>
+        <div className="flex justify-center">
+          <Dialog>
+            <DialogTrigger>
+              <div className="bg-blue-600 text-white rounded-lg px-4 py-2 cursor-pointer">
+                Recommended LinkedIn Profiles
+              </div>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>Recommended LinkedIn Profiles</DialogHeader>
+              {rec_profiles.map((x: any, i: any) => (
+                <div className="">{x.user}</div>
+              ))}
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-4">Skills:</h2>
