@@ -4,6 +4,14 @@ import ClientSkillsList from "@/components/ClientSkillsList";
 import ClientExperienceList from "@/components/ClientExperienceList";
 import ClientLearningList from "@/components/ClientLearningList";
 import ClientEducationList from "@/components/ClientEducationList";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 export default async function Profile() {
   const supabase = createClient();
   const user = (await supabase.auth.getUser()).data.user?.user_metadata;
@@ -32,10 +40,21 @@ export default async function Profile() {
     )
   ).json();
 
+  const rec_profiles = await (await fetch(`http://localhost:8000/linkedin/recommend?username=${encodeURIComponent(user!.email)}`)).json();
+
   return (
     <div className="container mx-auto px-4 w-3/4">
       <div className="my-8">
         <UserInfo user={user!} />
+        <Dialog>
+          <DialogTrigger><div className="">Open</div></DialogTrigger>
+          <DialogContent>
+            <DialogHeader>Recommended LinkedIn Profiles</DialogHeader>
+            {rec_profiles.map((x: any, i: any)=>(
+              <div className="">{x.user}</div>
+            ))}
+          </DialogContent>
+        </Dialog>
       </div>
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-4">Skills:</h2>
