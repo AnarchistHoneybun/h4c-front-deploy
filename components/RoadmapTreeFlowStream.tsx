@@ -114,7 +114,7 @@ function Flow() {
     };
   }
   return (
-    <div className="">
+    <div className="flex flex-col gap-2">
       <Input
         className="bg-gray-400"
         placeholder="Enter role here..."
@@ -129,7 +129,7 @@ function Flow() {
       />
       <Dialog>
         <DialogTrigger onClick={stream}>
-          <div className="w-full bg-slate-200">Add</div>
+          <div className="w-full bg-slate-200 rounded-lg">Add</div>
         </DialogTrigger>
         <DialogContent className="bg-white rounded-lg shadow-lg w-[90%] max-w-5xl h-[90%] max-h-[90vh] flex flex-col">
           <DialogHeader>Roadmap for XYZ</DialogHeader>

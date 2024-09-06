@@ -15,7 +15,6 @@ import RoadmapTreeFlowStream from "@/components/RoadmapTreeFlowStream";
 import Leaderboard from "@/components/Leaderboard";
 import DeleteRoadmap from "@/components/DeleteRoadmap";
 
-
 export default async function Page() {
   const supabase = createClient();
   const user = (await supabase.auth.getUser()).data.user?.user_metadata;
@@ -67,7 +66,7 @@ export default async function Page() {
                       Go
                     </Button>
                   </DialogTrigger>
-                  <DeleteRoadmap role={role} company={company}/>
+                  <DeleteRoadmap role={role} company={company} />
                   <DialogContent className="bg-white rounded-lg shadow-lg w-[90%] max-w-5xl h-[90%] max-h-[90vh] flex flex-col">
                     <DialogHeader>
                       {role} @ {company}
