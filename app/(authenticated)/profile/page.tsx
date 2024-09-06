@@ -11,7 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 export default async function Profile() {
   const supabase = createClient();
   const user = (await supabase.auth.getUser()).data.user?.user_metadata;
@@ -40,7 +40,13 @@ export default async function Profile() {
     )
   ).json();
 
-  const rec_profiles = await (await fetch(`http://localhost:8000/linkedin/recommend?username=${encodeURIComponent(user!.email)}`)).json();
+  const rec_profiles = await (
+    await fetch(
+      `http://localhost:8000/linkedin/recommend?username=${encodeURIComponent(
+        user!.email
+      )}`
+    )
+  ).json();
 
   return (
     <div className="container mx-auto px-4 w-3/4">
