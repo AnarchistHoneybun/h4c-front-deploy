@@ -21,8 +21,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
                 </div>
                 <div>
                     <h2 className="text-xl font-semibold">{user.user_name}</h2>
-                    <p className="text-gray-600">{user.job_title || 'Job Title Not Set'}</p>
-                    <p className="text-gray-600">{user.location || 'Location Not Set'}</p>
+                    <p className="text-gray-600">{user.location || 'Not set yet'}</p>
                 </div>
             </div>
             <div className="mb-6">
@@ -30,7 +29,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <p className="text-gray-600">First Name</p>
-                        <p>{user.first_name || 'Not Set'}</p>
+                        <p>{user.first_name || 'Not set'}</p>
                     </div>
                     <div>
                         <p className="text-gray-600">Last Name</p>

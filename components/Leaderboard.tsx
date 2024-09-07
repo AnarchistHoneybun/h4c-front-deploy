@@ -35,7 +35,7 @@ interface FriendLeaderboardResponse {
 const client = createClient();
 
 const Leaderboard = () => {
-  const [activeTab, setActiveTab] = useState('friends');
+  const [activeTab, setActiveTab] = useState('global');
   const [globalLeaderboard, setGlobalLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [friendLeaderboard, setFriendLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [position, setPosition] = useState(0);

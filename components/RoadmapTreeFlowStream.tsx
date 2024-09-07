@@ -200,11 +200,6 @@ function RoadmapTreeFlowStream() {
 
     socket.onclose = () => {
       console.log("WebSocket connection closed");
-
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
-      
     };
 
     socket.onerror = (error) => {
@@ -239,7 +234,7 @@ function RoadmapTreeFlowStream() {
     );
   }
 
-  return (
+   return (
     <div className="p-4">
       <div className="mb-4 space-y-2">
         <Input
@@ -254,28 +249,32 @@ function RoadmapTreeFlowStream() {
           value={company}
           onChange={(e) => setCompany(e.target.value)}
         />
-        <Button onClick={generateRoadmap} disabled={isGenerating}>
-          {isGenerating ? "Generating..." : "Generate Roadmap"}
-        </Button>
-        {isCompleted && (
-          <Button onClick={() => window.location.reload()}>
-            Reload Page
-          </Button>
-        )}
-      </div>
-      <div className="h-[600px] w-full">
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          fitView
-        >
-          <Controls />
-          <MiniMap />
-          <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
-        </ReactFlow>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button onClick={generateRoadmap} disabled={isGenerating}>
+              {isGenerating ? "Generating..." : "Generate Roadmap"}
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="max-w-[90vw] w-full max-h-[90vh] h-full p-0">
+            <DialogHeader className="p-4">
+              <h2 className="text-lg font-semibold">Roadmap for {role} at {company}</h2>
+            </DialogHeader>
+            <div className="flex-1 overflow-hidden h-full w-full ">
+              <ReactFlow
+                nodes={nodes}
+                edges={edges}
+                onNodesChange={onNodesChange}
+                onEdgesChange={onEdgesChange}
+                onConnect={onConnect}
+
+              >
+                <Controls />
+                <MiniMap />
+                <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
+              </ReactFlow>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
