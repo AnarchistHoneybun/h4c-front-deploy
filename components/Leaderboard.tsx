@@ -10,6 +10,8 @@ import {
   FaChartLine,
 } from "react-icons/fa";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { createClient } from "@/utils/supabase/client";
+
 
 interface LeaderboardEntry {
   username: string;
@@ -30,37 +32,40 @@ interface FriendLeaderboardResponse {
   friends: LeaderboardEntry[];
 }
 
+const client = createClient();
+
 const Leaderboard = () => {
   const [activeTab, setActiveTab] = useState('friends');
   const [globalLeaderboard, setGlobalLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [friendLeaderboard, setFriendLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [position, setPosition] = useState(0);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+
 
   useEffect(() => {
-    const fetchGlobalLeaderboard = async () => {
-      try {
-        const response = await fetch("http://127.0.0.1:8000/leaderboard/global?username=thatonebipanda@gmail.com");
-        const data: { position: number; leaderboard: LeaderboardEntry[] } = await response.json();
-        setPosition(data.position);
-        setGlobalLeaderboard(data.leaderboard.slice(0, 10)); // Limit to 10 entries
-      } catch (error) {
-        console.error('Error fetching global leaderboard:', error);
-      }
-    };
+    async function fetchLeaderboards() {
+      const user = await client.auth.getUser();
+      const userEmail = user.data.user?.email;
 
-    const fetchFriendLeaderboard = async () => {
-      try {
-        const response = await fetch("http://127.0.0.1:8000/leaderboard/friends?username=thatonebipanda@gmail.com");
-        const data: FriendLeaderboardResponse = await response.json();
-        setFriendLeaderboard(data.friends.slice(0, 10)); // Limit to 10 entries
-      } catch (error) {
-        console.error('Error fetching friend leaderboard:', error);
-      }
-    };
+      if (!userEmail) return;
 
-    fetchGlobalLeaderboard();
-    fetchFriendLeaderboard();
+      try {
+        const globalResponse = await fetch(`http://localhost:8000/leaderboard/global?username=${userEmail}`);
+        const globalData: { position: number; leaderboard: LeaderboardEntry[] } = await globalResponse.json();
+        setPosition(globalData.position);
+        setGlobalLeaderboard(globalData.leaderboard.slice(0, 10)); // Limit to 10 entries
+
+        const friendResponse = await fetch(`http://localhost:8000/leaderboard/friends?username=${userEmail}`);
+        const friendData: FriendLeaderboardResponse = await friendResponse.json();
+        setFriendLeaderboard(friendData.friends.slice(0, 10)); // Limit to 10 entries
+      } catch (error) {
+        console.error('Error fetching leaderboards:', error);
+      }
+    }
+
+    fetchLeaderboards();
   }, []);
+
 
   return (
     <Card className="mt-8 px-4 py-6">
