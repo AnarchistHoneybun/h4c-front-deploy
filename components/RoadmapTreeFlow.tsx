@@ -35,7 +35,7 @@
 //       const x = await fetch(`http://localhost:8000/roadmap?username=${encodeURIComponent(user.data.user?.email!)}&role=${role}&company=${company}`);
 //       let temp = await x.json();
 //       temp = temp["roadmap"];
-      
+
 //       for (let i in temp["roadmap"]) {
 //         let borderColor = "green"; // Default border color is green (beginner)
 //       if (temp["roadmap"][i]["Difficulty"] === "Advanced") {
@@ -43,7 +43,7 @@
 //       } else if (temp["roadmap"][i]["Difficulty"] === "Intermediate") {
 //         borderColor = "yellow";
 //       }
-        
+
 //         setNodes((e: any) => [
 //           ...e,
 //           {
@@ -57,7 +57,7 @@
 //             },
 //           },
 //         ]);
-        
+
 //         for (let j in temp["roadmap"][i]["Prerequisites"]) {
 //           setEdges((e: any) => [
 //             ...e,
@@ -71,7 +71,7 @@
 //             },
 //           ]);
 //         }
-        
+
 //         // let x_offset = 100;
 //         // let y_offset = 50;
 //         let sub_step_x_offset = 0;
@@ -315,7 +315,7 @@ const createEdge = (source: any, target: any, animated = false) => ({
     height: 20,
   },
 });
-function Flow() {
+function RoadmapTreeFlow({ role, company }: { role: string; company: string }) {
   const [nodes, setNodes, onNodesChange] = useNodesState<any>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<any>([]);
   const [currentStep, setCurrentStep] = useState(0);
@@ -459,21 +459,19 @@ function Flow() {
   // }
   return (
     <div className="h-full w-full">
-      
-              <ReactFlow
-                nodes={nodes}
-                onNodesChange={onNodesChange}
-                edges={edges}
-                onEdgesChange={onEdgesChange}
-                fitView
-                className="h-full w-full"
-              >
-                <Background />
-                <Controls />
-              </ReactFlow>
-            
+      <ReactFlow
+        nodes={nodes}
+        onNodesChange={onNodesChange}
+        edges={edges}
+        onEdgesChange={onEdgesChange}
+        fitView
+        className="h-full w-full"
+      >
+        <Background />
+        <Controls />
+      </ReactFlow>
     </div>
   );
 }
 
-export default Flow;
+export default RoadmapTreeFlow;

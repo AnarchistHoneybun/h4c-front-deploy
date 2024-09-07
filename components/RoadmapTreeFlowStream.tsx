@@ -220,7 +220,12 @@ function Flow() {
     const steps = Object.values(roadmapData);
     if (currentStep < steps.length) {
       addStep(steps[currentStep], currentStep);
-      setTimeout(() => setCurrentStep(currentStep + 1), 3000);
+      if(currentStep){
+        setTimeout(() => setCurrentStep(currentStep + 1), 3000);
+      }else{
+        setTimeout(() => setCurrentStep(currentStep + 1), 15000);
+      }
+      console.log(currentStep);
     }
   }, [currentStep, addStep]);
 
@@ -333,7 +338,7 @@ function Flow() {
           <div className="w-full bg-slate-200">Add</div>
         </DialogTrigger>
         <DialogContent className="bg-white rounded-lg shadow-lg w-[90%] max-w-5xl h-[90%] max-h-[90vh] flex flex-col">
-          <DialogHeader>Roadmap for XYZ</DialogHeader>
+          {/* <DialogHeader>Roadmap for XYZ</DialogHeader> */}
           <div className="flex-1 overflow-auto">
             <div className="h-full w-full">
               <ReactFlow
